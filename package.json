@@ -6,6 +6,7 @@
     "cra-template": "1.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1"
   },
   "scripts": {
@@ -34,5 +35,10 @@
   },
   "devDependencies": {
     "web-vitals": "^2.1.4"
-  }
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

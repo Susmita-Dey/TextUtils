@@ -6,4 +6,4 @@ const d = "Priyanka"
 export default d;
 export { a }
 export { c }
-export { d }
+export { b }
