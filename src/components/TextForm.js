@@ -36,6 +36,28 @@ export default function TextForm(props) {
     // console.log("On change");
     setText(event.target.value);
   };
+ //To extract the words from the text.
+ const handletextExtract = () => {
+  const letters = text.match(/\w+/g);
+  if (letters !== null) {
+    const res1 = letters.join("");
+    setText(res1);
+    props.showAlert("Extracted the words from the text", "success");
+  } else {
+    props.showAlert("No words found in the text", "warning");
+  }
+};
+//To extract the number from the text.
+const handleNumExtract = () => {
+  const digits = text.match(/[0-9]/g);
+  if (digits != null) {
+    const res = digits.join(" ");
+    setText(res);
+    props.showAlert("Extracted the Numbers from the text", "success");
+  } else {
+    props.showAlert("No number found", "warning");
+  }
+};
   const [text, setText] = useState("");
   // text="new text" // Wrong way to change the state
   // setText("new text") // Correct way to change the state
@@ -82,6 +104,20 @@ export default function TextForm(props) {
           onClick={handleClearClick}
         >
           Clear Text
+        </button>
+        <button
+          disabled={text.length === 0}
+          className="btn btn-primary mx-1 my-1"
+          onClick={handleNumExtract}
+        >
+          Extract Numbers
+        </button>
+        <button
+          disabled={text.length === 0}
+          className="btn btn-primary mx-1 my-1"
+          onClick={handletextExtract}
+        >
+         Extract Text
         </button>
         <button
           disabled={text.length === 0}
