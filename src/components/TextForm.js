@@ -38,7 +38,7 @@ export default function TextForm(props) {
   };
  //To extract the words from the text.
  const handletextExtract = () => {
-  const letters = text.match(/\w+/g);
+  const letters = text.match(/[a-z]|[A-Z]/g);
   if (letters !== null) {
     const res1 = letters.join("");
     setText(res1);
