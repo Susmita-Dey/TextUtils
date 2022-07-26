@@ -51,7 +51,7 @@ export default function TextForm(props) {
 const handleNumExtract = () => {
   const digits = text.match(/[0-9]/g);
   if (digits != null) {
-    const res = digits.join(" ");
+    const res = digits.join("");
     setText(res);
     props.showAlert("Extracted the Numbers from the text", "success");
   } else {
