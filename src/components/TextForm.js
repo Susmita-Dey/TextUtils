@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import  '../App'
 
 export default function TextForm(props) {
   const handleUpClick = () => {
@@ -83,6 +84,8 @@ const handleNumExtract = () => {
             }}
           ></textarea>
         </div>
+       
+
 
         <button
           disabled={text.length === 0}
@@ -148,7 +151,7 @@ const handleNumExtract = () => {
           color: props.mode === "dark" ? "white" : "#042743",
         }}
       >
-        <h2>Your text summary</h2>
+        <h2>Your Text Summary</h2>
         <p>
           {text.length > 0 ? text.trim().split(/\s+/).length : 0} words,{" "}
           {text.length} characters
