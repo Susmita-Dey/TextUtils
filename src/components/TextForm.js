@@ -83,9 +83,7 @@ const handleNumExtract = () => {
             }}
           ></textarea>
         </div>
-       
-
-
+        
         <button
           disabled={text.length === 0}
           className="btn btn-primary mx-1 my-1"
