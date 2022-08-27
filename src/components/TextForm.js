@@ -83,7 +83,6 @@ const handleNumExtract = () => {
             }}
           ></textarea>
         </div>
-
         <button
           disabled={text.length === 0}
           className="btn btn-primary mx-1 my-1"
@@ -148,7 +147,7 @@ const handleNumExtract = () => {
           color: props.mode === "dark" ? "white" : "#042743",
         }}
       >
-        <h2>Your text summary</h2>
+        <h2>Your Text Summary</h2>
         <p>
           {text.length > 0 ? text.trim().split(/\s+/).length : 0} words,{" "}
           {text.length} characters
