@@ -5,7 +5,7 @@
 
 - [Git](https://git-scm.com/) 
 - [Basic JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-- [NodeJS](https://nodejs.org/)
+- [ReactJS](https://reactjs.org/docs/getting-started.html)
 
 ### Contribute in Documents
 
@@ -14,36 +14,36 @@
 ---
 ## 💥 How to Contribute
 
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/Susmita-Dey/all-round-calculator/pulls)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/Susmita-Dey/TextUtils/pulls)
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/Susmita-Dey/)
 
-- Take a look at the existing [Issues](https://github.com/Susmita-Dey/all-round-calculator/issues) or [create a new issue](https://github.com/Susmita-Dey/all-round-calculator/issues/new/choose)!
-- [Fork the Repo](https://github.com/Susmita-Dey/all-round-calculator/fork). Then, create a branch for any issue that you are working on. Finally, commit your work.
-- Create a **[Pull Request](https://github.com/Susmita-Dey/all-round-calculator/compare)** (_PR_), which will be promptly reviewed and given suggestions for improvements by the community.
+- Take a look at the existing [Issues](https://github.com/Susmita-Dey/TextUtils/issues) or [create a new issue](https://github.com/Susmita-Dey/TextUtils/issues/new/choose)!
+- [Fork the Repo](https://github.com/Susmita-Dey/TextUtils/fork). Then, create a branch for any issue that you are working on. Finally, commit your work.
+- Create a **[Pull Request](https://github.com/Susmita-Dey/TextUtils/compare)** (_PR_), which will be promptly reviewed and given suggestions for improvements by the community.
 - Add screenshots or screen captures to your Pull Request to help us understand the effects of the changes proposed in your PR.
 
 
 ---
 ## ⭐ HOW TO MAKE A PULL REQUEST:
 
-**1.** Start by making a Fork of the [**all-round-calculator**](https://github.com/Susmita-Dey/all-round-calculator) repository. Click on the <a href="https://github.com/Susmita-Dey/all-round-calculator/fork"><img src="https://i.imgur.com/G4z1kEe.png" height="21" width="21"></a>Fork symbol at the top right corner.
+**1.** Start by making a Fork of the [**TextUtils**](https://github.com/Susmita-Dey/TextUtils) repository. Click on the <a href="https://github.com/Susmita-Dey/TextUtils/fork"><img src="https://i.imgur.com/G4z1kEe.png" height="21" width="21"></a>Fork symbol at the top right corner.
 
 **2.** Clone your new fork of the repository in the terminal/CLI on your computer with the following command:
 
 ```bash
-git clone https://github.com/<your-github-username>/all-round-calculator
+git clone https://github.com/<your-github-username>/TextUtils
 ```
 
 **3.** Navigate to the newly created LinkFree project directory:
 
 ```bash
-cd all-round-calculator
+cd TextUtils
 ```
 
 **4.** Set upstream command:
 
 ```bash
-git remote add upstream https://github.com/Susmita-Dey/all-round-calculator.git
+git remote add upstream https://github.com/Susmita-Dey/TextUtils.git
 ```
 
 **5.** Create a new branch:
@@ -93,7 +93,7 @@ git push origin YourBranchName
 
 **10.** Create a [Pull Request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request)!
 
-**11.** **Congratulations!** You've made your first contribution to [**all-round-calculator**](https://github.com/Susmita-Dey/all-round-calculator/graphs/contributors)! 🙌🏼
+**11.** **Congratulations!** You've made your first contribution to [**TextUtils**](https://github.com/Susmita-Dey/TextUtils/graphs/contributors)! 🙌🏼
 
 **_:trophy: After this, the maintainers will review the PR and will merge it if it helps move the all-round-calculator project forward. Otherwise, it will be given constructive feedback and suggestions for the changes needed to add the PR to the codebase._**
 
@@ -111,12 +111,12 @@ git push origin YourBranchName
 - Do not end the subject line with a period.
 - Wrap the body at _72 characters_.
 - Use the body to explain the _what_, _why_, _vs_, and _how_.
-- Reference [Issues](https://github.com/Susmita-Dey/all-round-calculator/issues) and [Pull Requests](https://github.com/Susmita-Dey/all-round-calculator/pulls) liberally after the first line.
+- Reference [Issues](https://github.com/Susmita-Dey/TextUtils/issues) and [Pull Requests](https://github.com/Susmita-Dey/TextUtils/pulls) liberally after the first line.
 
 ---
 ## 💥 Issues
 
-In order to discuss changes, you are welcome to [open an issue](https://github.com/Susmita-Dey/all-round-calculator/issues/new/choose) about what you would like to contribute. Enhancements are always encouraged and appreciated.
+In order to discuss changes, you are welcome to [open an issue](https://github.com/Susmita-Dey/TextUtils/issues/new/choose) about what you would like to contribute. Enhancements are always encouraged and appreciated.
 
 ## All the best! 🥇
 
