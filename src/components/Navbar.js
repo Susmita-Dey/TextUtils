@@ -2,6 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
+import { IconContext } from "react-icons";
+import { FaSun } from "react-icons/fa";
+import { FaMoon } from "react-icons/fa";
+
 export default function Navbar(props) {
   return (
     <nav
@@ -83,7 +87,7 @@ export default function Navbar(props) {
             className={`form-check form-switch text-${
               props.mode === "light" ? "dark" : "light"
             }`}
-          >
+          > 
             <input
               className="form-check-input"
               type="checkbox"
@@ -97,7 +101,12 @@ export default function Navbar(props) {
               className="form-check-label"
               htmlFor="flexSwitchCheckDefault"
             >
-              Enable Dark Mode
+              <IconContext.Provider value={{ style: { verticalAlign: 'middle'}, size:"1.5em" }}>
+                <div>
+                  <FaSun style={ { display: props.mode === "dark" ? 'block' : 'none' } } />
+                  <FaMoon style={ { display: props.mode === "light" ? 'block' : 'none' } } />
+                </div>
+              </IconContext.Provider>
             </label>
           </div>
         </div>
