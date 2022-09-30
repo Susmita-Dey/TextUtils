@@ -13,6 +13,15 @@ export default function TextForm(props) {
     setText(newText);
     props.showAlert("Converted to lowercase", "success");
   };
+  const handleSentenceClick = () =>{
+    let newText = text.toLowerCase().split(' ');
+    for (var i = 0; i < newText.length; i++) {
+        newText[i] = newText[i].charAt(0).toUpperCase() + newText[i].slice(1); 
+      }
+      newText = newText.join(' ');
+      setText(newText);
+      props.showAlert("Converted to Sentencecase", "success");
+  };
   const handleClearClick = () => {
     let newText = "";
     setText(newText);
@@ -100,6 +109,13 @@ const handleNumExtract = () => {
         <button
           disabled={text.length === 0}
           className="btn btn-primary mx-1 my-1"
+          onClick={handleSentenceClick}
+        >
+          Convert to Sentencecase
+        </button>
+        <button
+          disabled={text.length === 0}
+          className="btn btn-primary mx-1 my-1"
           onClick={handleClearClick}
         >
           Clear Text
@@ -165,3 +181,6 @@ const handleNumExtract = () => {
     </>
   );
 }
+
+
+
