@@ -93,7 +93,7 @@ export default function Navbar(props) {
               role="switch"
               id="flexSwitchCheckDefault"
             />
-            <label
+            <label style={{ cursor: "pointer" }} 
               className="form-check-label"
               htmlFor="flexSwitchCheckDefault"
             >
