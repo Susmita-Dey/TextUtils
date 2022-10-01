@@ -50,6 +50,7 @@ TextUtils is licensed under the MIT License - see the [LICENSE](LICENSE) file fo
 <a href="https://github.com/Susmita-Dey/TextUtils/graphs/contributors" align="center">
   <img src="https://contrib.rocks/image?repo=Susmita-Dey/TextUtils" /> 
 </a>
+<hr>
 <p align="center">
   Show some :heart: by starring the repository.
 </p>
