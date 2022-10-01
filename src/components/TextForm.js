@@ -32,10 +32,22 @@ export default function TextForm(props) {
     navigator.clipboard.writeText(text);
     props.showAlert("Text has been copied to clipboard", "success");
   };
+  const handleRemoveWhiteSpaceClick = () => {
+	 let res = "";
+	 for(let i = 0; i < text.length - 1; i++){
+		 if(text[i] == ' ' && text[i + 1] == ' ') continue;
+		 else res += text[i];
+	 }
+	 if(text[text.length - 1] != ' ') res += text[text.length - 1];
+	//console.log(res);
+    setText(res);
+    props.showAlert("White space removed", "success");
+  };
   const handleOnChange = (event) => {
     // console.log("On change");
     setText(event.target.value);
   };
+  
  //To extract the words from the text.
  const handletextExtract = () => {
   const letters = text.match(/[a-z]|[A-Z]/g);
@@ -131,6 +143,13 @@ const handleNumExtract = () => {
           onClick={handleStopClick}
         >
           Stop Now
+        </button>
+		<button
+          disabled={text.length === 0}
+          className="btn btn-primary mx-1 my-1"
+          onClick={handleRemoveWhiteSpaceClick}
+        >
+          Remove White Space
         </button>
         <button
           disabled={text.length === 0}
