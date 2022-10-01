@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Alert from "./components/Alert";
@@ -7,8 +7,11 @@ import TextForm from "./components/TextForm";
 import About from "./components/About";
 import Footer from "./components/Footer";
 
+
+const defaultMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light";
+
 function App() {
-  const [mode, setMode] = useState("light");
+  const [mode, setMode] = useState(defaultMode);
   const [alert, setAlert] = useState(null);
 
   // const removeBodyClasses = () => {
@@ -20,13 +23,20 @@ function App() {
   //   document.body.classList.remove("bg-primary");
   // };
 
+  useEffect(() => {
+    if (mode === "dark") {
+      document.body.style.backgroundColor = "#042743";
+    } else {
+      document.body.style.backgroundColor = "white";
+    }
+  }, [mode]);
+
   const toggleMode = () => {
     // removeBodyClasses();
     // console.log(cls);
     // document.body.classList.add("bg-" + cls);
     if (mode === "light") {
       setMode("dark");
-      document.body.style.backgroundColor = "#042743";
       showAlert("Dark mode has been enabled", "success");
 
       // document.title = "TextUtils - Dark Mode";
@@ -38,7 +48,6 @@ function App() {
       // }, 1500);
     } else {
       setMode("light");
-      document.body.style.backgroundColor = "white";
       showAlert("Light mode has been enabled", "success");
       // document.title = "TextUtils - Light Mode";
     }

@@ -90,6 +90,7 @@ export default function Navbar(props) {
               onClick={() => {
                 props.toggleMode("light");
               }}
+              checked={props.mode === "dark"}
               role="switch"
               id="flexSwitchCheckDefault"
             />
