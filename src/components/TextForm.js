@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 
+// Minor words which are not considered for titlecasing
+const arrMinorWords = ['a', 'an', 'of', 'the', 'in', 'at', 'is'];
+
 export default function TextForm(props) {
   const handleUpClick = () => {
     // console.log("Uppercase was clicked!" + text);
@@ -13,6 +16,37 @@ export default function TextForm(props) {
     setText(newText);
     props.showAlert("Converted to lowercase", "success");
   };
+
+  const handleTitleClick = () => {
+    var arrTitle = text.split(" ")        
+    var arrLower=[];
+  
+    // Converting all the input words to lowercase
+    for (var j=0;j<arrTitle.length;j++){
+      arrTitle[j]=arrTitle[j].split("");
+      for (var k=0;k<arrTitle[j].length;k++) arrTitle[j][k]=arrTitle[j][k].toLowerCase();
+      arrLower.push(arrTitle[j].join(""));
+    }
+   
+    // Filtering for minor words and then capatilizing the first letter
+    for (j=0;j<arrLower.length;j++){
+      if((arrMinorWords.indexOf(arrLower[j]))===-1){      
+        var word1 = arrLower[j].split("");
+        word1[0] = word1[0].toUpperCase();
+        arrLower[j] = word1.join("");
+      }
+    }
+
+    // First letter of the first word must always be capitalised
+    var firstWord = arrLower[0].split("");
+    firstWord[0] = firstWord[0].toUpperCase();
+    arrLower[0] = firstWord.join("");
+      
+    arrLower = arrLower.join(" ");
+    setText(arrLower);
+    props.showAlert("Converted to titlecase", "success");
+  };
+  
   const handleClearClick = () => {
     let newText = "";
     setText(newText);
@@ -110,6 +144,13 @@ export default function TextForm(props) {
           onClick={handleLowClick}
         >
           Convert to Lowercase
+        </button>
+        <button
+          disabled={text.length === 0}
+          className="btn btn-primary mx-1 my-1"
+          onClick={handleTitleClick}
+        >
+          Convert to Titlecase
         </button>
         <button
           disabled={text.length === 0}
