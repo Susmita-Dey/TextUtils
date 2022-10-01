@@ -5,6 +5,7 @@ import Alert from "./components/Alert";
 import Navbar from "./components/Navbar";
 import TextForm from "./components/TextForm";
 import About from "./components/About";
+import Footer from "./components/Footer";
 
 function App() {
   const [mode, setMode] = useState("light");
@@ -79,6 +80,7 @@ function App() {
 
         {/* <About /> */}
       </div>
+      <Footer/>
     </>
   );
 }
