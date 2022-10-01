@@ -1,8 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import { BiSun } from "react-icons/bi";
+import { HiMoon } from "react-icons/hi";
 
 export default function Navbar(props) {
+  const style = { width: "30px", height: "30px", cursor: "pointer",};
   return (
     <nav
       className={`navbar navbar-expand-lg navbar-${props.mode} bg-${props.mode}`}
@@ -84,21 +87,27 @@ export default function Navbar(props) {
               props.mode === "light" ? "dark" : "light"
             }`}
           >
-            <input
-              className="form-check-input"
+            {props.mode === "dark" ? (
+              <BiSun
+                style={style}
+                onClick={() => {
+                  props.toggleMode("light");
+                }}
+              />
+            ) : (
+              <HiMoon
+                style={style}
+                onClick={() => {
+                  props.toggleMode("light");
+                }}
+              />
+            )}
+            {/* <input
+              className="form-check-input toggler"
               type="checkbox"
-              onClick={() => {
-                props.toggleMode("light");
-              }}
               role="switch"
               id="flexSwitchCheckDefault"
-            />
-            <label
-              className="form-check-label"
-              htmlFor="flexSwitchCheckDefault"
-            >
-              Enable Dark Mode
-            </label>
+            /> */}
           </div>
         </div>
       </div>

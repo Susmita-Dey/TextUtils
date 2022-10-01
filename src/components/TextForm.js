@@ -23,6 +23,7 @@ export default function TextForm(props) {
       props.showAlert("Converted to Sentencecase", "success");
   };
   const handleClearClick = () => {
+    alert('Are you sure you want to clear text?');
     let newText = "";
     setText(newText);
     props.showAlert("Text has been cleared", "success");
