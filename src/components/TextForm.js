@@ -45,28 +45,42 @@ export default function TextForm(props) {
     // console.log("On change");
     setText(event.target.value);
   };
- //To extract the words from the text.
- const handletextExtract = () => {
-  const letters = text.match(/[a-z]|[A-Z]/g);
-  if (letters !== null) {
-    const res1 = letters.join("");
-    setText(res1);
-    props.showAlert("Extracted the words from the text", "success");
-  } else {
-    props.showAlert("No words found in the text", "warning");
-  }
-};
-//To extract the number from the text.
-const handleNumExtract = () => {
-  const digits = text.match(/[0-9]/g);
-  if (digits != null) {
-    const res = digits.join("");
-    setText(res);
-    props.showAlert("Extracted the Numbers from the text", "success");
-  } else {
-    props.showAlert("No number found", "warning");
-  }
-};
+  //To extract the words from the text.
+  const handletextExtract = () => {
+    const letters = text.match(/[a-z]|[A-Z]/g);
+    if (letters !== null) {
+      const res1 = letters.join("");
+      setText(res1);
+      props.showAlert("Extracted the words from the text", "success");
+    } else {
+      props.showAlert("No words found in the text", "warning");
+    }
+  };
+  //To extract the number from the text.
+  const handleNumExtract = () => {
+    const digits = text.match(/[0-9]/g);
+    if (digits != null) {
+      const res = digits.join("");
+      setText(res);
+      props.showAlert("Extracted the Numbers from the text", "success");
+    } else {
+      props.showAlert("No number found", "warning");
+    }
+  };
+
+  const handleLinkExtract = () => {
+    const link = text.match(
+      /(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/gim
+    );
+
+    if (link != null) {
+      const res = link.join("");
+      setText(res);
+      props.showAlert("Extracted the Links from the text", "success");
+    } else {
+      props.showAlert("No link found", "warning");
+    }
+  };
   const [text, setText] = useState("");
   // text="new text" // Wrong way to change the state
   // setText("new text") // Correct way to change the state
@@ -130,9 +144,16 @@ const handleNumExtract = () => {
         <button
           disabled={text.length === 0}
           className="btn btn-primary mx-1 my-1"
+          onClick={handleLinkExtract}
+        >
+          Extract Links
+        </button>
+        <button
+          disabled={text.length === 0}
+          className="btn btn-primary mx-1 my-1"
           onClick={handletextExtract}
         >
-         Extract Text
+          Extract Text
         </button>
         <button
           disabled={text.length === 0}
