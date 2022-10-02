@@ -23,9 +23,11 @@ export default function TextForm(props) {
       props.showAlert("Converted to Sentencecase", "success");
   };
   const handleClearClick = () => {
-    let newText = "";
-    setText(newText);
-    props.showAlert("Text has been cleared", "success");
+    if(window.confirm("Do you want to delete the text")) {
+      let newText = "";
+      setText(newText);
+      props.showAlert("Text has been cleared", "success");
+    }
   };
   const handleSpeakClick = (event) => {
     let el = event.currentTarget;
