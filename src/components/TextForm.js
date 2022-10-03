@@ -32,11 +32,27 @@ export default function TextForm(props) {
     let msg = new SpeechSynthesisUtterance();
     msg.text = text;
     window.speechSynthesis.speak(msg);
+    if(window.confirm("Do you want to delete the text")) {
+      let newText = "";
+      setText(newText);
+      props.showAlert("Text has been cleared", "success");
+    }
   };
-  const handleStopClick = () => {
-    let msg = new SpeechSynthesisUtterance();
-    msg.text = text;
-    window.speechSynthesis.cancel(msg);
+  const handleSpeakClick = (event) => {
+    let el = event.currentTarget;
+    if (el.innerHTML === "Listen Now") el.innerHTML = "Stop Now"
+    else el.innerHTML = "Listen Now"
+
+    // el.innerHTML has already been changed here, hence checking for the opposite value
+    if (el.innerHTML === "Stop Now") {
+      let msg = new SpeechSynthesisUtterance();
+      msg.text = text;
+      window.speechSynthesis.speak(msg);
+    } else {
+      let msg = new SpeechSynthesisUtterance();
+      msg.text = text;
+      window.speechSynthesis.cancel(msg);
+    }
   };
   const handleCopyClick = () => {
     navigator.clipboard.writeText(text);
@@ -175,13 +191,6 @@ export default function TextForm(props) {
           onClick={handleSpeakClick}
         >
           Listen Now
-        </button>
-        <button
-          disabled={text.length === 0}
-          className="btn btn-primary mx-1 my-1"
-          onClick={handleStopClick}
-        >
-          Stop Now
         </button>
 		<button
           disabled={text.length === 0}
