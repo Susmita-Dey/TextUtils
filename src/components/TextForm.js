@@ -199,13 +199,13 @@ export default function TextForm(props) {
         >
           Listen Now
         </button>
-        <button
+        {/* <button
           disabled={text.length === 0}
           className="btn btn-primary mx-1 my-1"
           onClick={handleStopClick}
         >
           Stop Now
-        </button>
+        </button> */}
         <button
           disabled={text.length === 0}
           className="btn btn-primary mx-1 my-1"
