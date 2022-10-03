@@ -1,6 +1,15 @@
 import React, { useState } from "react";
+import { Buffer } from 'buffer';
 
 export default function TextForm(props) {
+
+  //function to convert text into base64 encoding
+  const handlebase64Click = () => {
+    let encodedData = Buffer.from(text).toString('base64');
+    setText(encodedData);
+    props.showAlert("Converted to Base64 encoding", "success");
+  }
+  //---------------------------------------------
   const handleUpClick = () => {
     // console.log("Uppercase was clicked!" + text);
     let newText = text.toUpperCase();
@@ -13,17 +22,17 @@ export default function TextForm(props) {
     setText(newText);
     props.showAlert("Converted to lowercase", "success");
   };
-  const handleSentenceClick = () =>{
+  const handleSentenceClick = () => {
     let newText = text.toLowerCase().split(' ');
     for (var i = 0; i < newText.length; i++) {
-        newText[i] = newText[i].charAt(0).toUpperCase() + newText[i].slice(1); 
-      }
-      newText = newText.join(' ');
-      setText(newText);
-      props.showAlert("Converted to Sentencecase", "success");
+      newText[i] = newText[i].charAt(0).toUpperCase() + newText[i].slice(1);
+    }
+    newText = newText.join(' ');
+    setText(newText);
+    props.showAlert("Converted to Sentencecase", "success");
   };
   const handleClearClick = () => {
-    if(window.confirm("Do you want to delete the text")) {
+    if (window.confirm("Do you want to delete the text")) {
       let newText = "";
       setText(newText);
       props.showAlert("Text has been cleared", "success");
@@ -44,13 +53,13 @@ export default function TextForm(props) {
     props.showAlert("Text has been copied to clipboard", "success");
   };
   const handleRemoveWhiteSpaceClick = () => {
-	 let res = "";
-	 for(let i = 0; i < text.length - 1; i++){
-		 if(text[i] == ' ' && text[i + 1] == ' ') continue;
-		 else res += text[i];
-	 }
-	 if(text[text.length - 1] != ' ') res += text[text.length - 1];
-	//console.log(res);
+    let res = "";
+    for (let i = 0; i < text.length - 1; i++) {
+      if (text[i] == ' ' && text[i + 1] == ' ') continue;
+      else res += text[i];
+    }
+    if (text[text.length - 1] != ' ') res += text[text.length - 1];
+    //console.log(res);
     setText(res);
     props.showAlert("White space removed", "success");
   };
@@ -145,6 +154,13 @@ export default function TextForm(props) {
         <button
           disabled={text.length === 0}
           className="btn btn-primary mx-1 my-1"
+          onClick={handlebase64Click}
+        >
+          Encode to Base64
+        </button>
+        <button
+          disabled={text.length === 0}
+          className="btn btn-primary mx-1 my-1"
           onClick={handleClearClick}
         >
           Clear Text
@@ -184,7 +200,7 @@ export default function TextForm(props) {
         >
           Stop Now
         </button>
-		<button
+        <button
           disabled={text.length === 0}
           className="btn btn-primary mx-1 my-1"
           onClick={handleRemoveWhiteSpaceClick}
