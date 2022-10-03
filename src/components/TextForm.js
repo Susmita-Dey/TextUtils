@@ -38,15 +38,21 @@ export default function TextForm(props) {
       props.showAlert("Text has been cleared", "success");
     }
   };
-  const handleSpeakClick = () => {
-    let msg = new SpeechSynthesisUtterance();
-    msg.text = text;
-    window.speechSynthesis.speak(msg);
-  };
-  const handleStopClick = () => {
-    let msg = new SpeechSynthesisUtterance();
-    msg.text = text;
-    window.speechSynthesis.cancel(msg);
+  const handleSpeakClick = (event) => {
+    let el = event.currentTarget;
+    if (el.innerHTML === "Listen Now") el.innerHTML = "Stop Now"
+    else el.innerHTML = "Listen Now"
+
+    // el.innerHTML has already been changed here, hence checking for the opposite value
+    if (el.innerHTML === "Stop Now") {
+      let msg = new SpeechSynthesisUtterance();
+      msg.text = text;
+      window.speechSynthesis.speak(msg);
+    } else {
+      let msg = new SpeechSynthesisUtterance();
+      msg.text = text;
+      window.speechSynthesis.cancel(msg);
+    }
   };
   const handleCopyClick = () => {
     navigator.clipboard.writeText(text);
