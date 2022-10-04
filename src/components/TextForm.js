@@ -102,6 +102,13 @@ export default function TextForm(props) {
     }
   };
 
+  const TextSpeech = () => {
+    // console.log("the button was clicked!" + text);
+    let NewTexutterance = new SpeechSynthesisUtterance();
+    NewTexutterance.text =text;
+    window.speechSynthesis.speak(NewTexutterance);
+  };
+
   const [text, setText] = useState("");
   // text="new text" // Wrong way to change the state
   // setText("new text") // Correct way to change the state
@@ -197,6 +204,8 @@ export default function TextForm(props) {
         >
           Copy to Clipboard
         </button>
+
+        <button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={TextSpeech}>speak a loud</button>
       </div>
 
       <div
