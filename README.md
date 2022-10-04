@@ -1,4 +1,4 @@
-# TextUtils [ <img src="https://i.imgur.com/MpwNPlX.jpg" align = "center" width = "75" height="60"> ](https://i.imgur.com/MpwNPlX.jpg)
+# [ <img src="https://i.imgur.com/MpwNPlX.jpg" align = "center" width = "75" height="60"> ](https://i.imgur.com/MpwNPlX.jpg) TextUtils 
 
 ### TextUtils is a text analyzer, word counter and converter made with React. 
 
