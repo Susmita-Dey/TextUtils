@@ -1,4 +1,5 @@
 import React from "react";
+import '../index.css'
 
 export default function About(props) {
   let myStyle = {
@@ -8,7 +9,7 @@ export default function About(props) {
 
   return (
     <div
-      className="container"
+      className="container mar"
       style={{ color: props.mode === "dark" ? "white" : "#042743" }}
     >
       <h1 className="my-3">About Us</h1>
