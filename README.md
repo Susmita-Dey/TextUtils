@@ -1,7 +1,9 @@
 # TextUtils
 
-![Logo](https://i.imgur.com/MpwNPlX.jpg)
-TextUtils is a text analyzer, word counter and converter made with React. 
+[ <img src="https://i.imgur.com/MpwNPlX.jpg" align = "center"> ](https://github.com/Susmita-Dey/TextUtils)
+
+
+### TextUtils is a text analyzer, word counter and converter made with React. 
 
 It has the following features:
 - Convert Text to UpperCase
