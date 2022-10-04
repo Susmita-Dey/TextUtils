@@ -1,6 +1,6 @@
 # TextUtils
 
-[ <img src="https://i.imgur.com/MpwNPlX.jpg" align = "center"> ](https://github.com/Susmita-Dey/TextUtils)
+[ <img src="https://i.imgur.com/MpwNPlX.jpg" align = "center" width = "200" height="200"> ](https://github.com/Susmita-Dey/TextUtils)
 
 
 ### TextUtils is a text analyzer, word counter and converter made with React. 
