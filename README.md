@@ -1,4 +1,6 @@
 # TextUtils
+
+![Logo](https://i.imgur.com/MpwNPlX.jpg)
 TextUtils is a text analyzer, word counter and converter made with React. 
 
 It has the following features:
