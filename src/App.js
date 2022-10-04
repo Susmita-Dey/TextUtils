@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import TextForm from "./components/TextForm";
 import About from "./components/About";
 import Footer from "./components/Footer";
+import ErrorPage from './components/ErrorPage'
 
 function App() {
   const [mode, setMode] = useState("light");
@@ -76,6 +77,7 @@ function App() {
             }
           />
           <Route exact path="/about" element={<About mode={mode} />} />
+          <Route path="*" element={<ErrorPage mode={mode}/>} />
         </Routes>
 
         {/* <About /> */}
