@@ -102,6 +102,13 @@ export default function TextForm(props) {
     }
   };
 
+  const replace = () => {
+    let word =  prompt("what you want to replace");
+    let newword =  prompt("write the new word");
+     let newText =  text.split(word).join(newword);
+     setText(newText)
+  };
+
   const [text, setText] = useState("");
   // text="new text" // Wrong way to change the state
   // setText("new text") // Correct way to change the state
@@ -196,6 +203,14 @@ export default function TextForm(props) {
           onClick={handleCopyClick}
         >
           Copy to Clipboard
+        </button>
+
+        <button
+          disabled={text.length === 0}
+          className="btn btn-primary mx-1 my-1"
+          onClick={replace}
+        >
+          Change Text 
         </button>
       </div>
 
