@@ -111,9 +111,46 @@ export default function TextForm(props) {
     }
   };
 
+  //speech
+
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition
+  const mic = new SpeechRecognition()
+
+  mic.continuous = true
+  mic.interimResults = true
+  mic.lang = 'en-US'
+
   const [text, setText] = useState("");
+  const [isListening, setIsListening] = useState(false)
   // text="new text" // Wrong way to change the state
   // setText("new text") // Correct way to change the state
+
+  useEffect(() => {
+    handleListen()
+  }, [isListening])
+
+  const handleListen = () => {
+    if (isListening) {
+      mic.start()
+      console.log("start")
+    } else {
+      mic.stop()
+      console.log("stopeed")
+    }
+    mic.onresult = event => {
+
+      const transcript = Array.from(event.results)
+        .map(result => result[0])
+        .map(result => result.transcript)
+        .join('')
+      setText(transcript)
+      mic.onerror = event => {
+        console.log(event.error)
+      }
+    }
+  }
+
   return (
     <>
       <div
@@ -213,6 +250,13 @@ export default function TextForm(props) {
         >
           Copy to Clipboard
         </button>
+
+        <button
+          className="btn btn-primary mx-1 my-1"
+          onClick={() => setIsListening(prevState => !prevState)}
+        >
+          {isListening ? "Stop Listening" : "Start Listening"}
+        </button>
       </div>
 
       <div
@@ -239,6 +283,3 @@ export default function TextForm(props) {
     </>
   );
 }
-
-
-
