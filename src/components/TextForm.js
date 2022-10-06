@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Buffer } from 'buffer';
 
 export default function TextForm(props) {
