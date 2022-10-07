@@ -38,13 +38,15 @@ TextUtils is licensed under the MIT License - see the [LICENSE](LICENSE) file fo
  <img width="1200" alt="Email Banners-Dark" src="https://user-images.githubusercontent.com/79099734/189589410-ca17afb8-5855-4316-918a-054f27594809.png">
  </a>
 
-## 😎 Project Admin
+## 😎 Project Maintainers
 
 <table>
   <tr>
 <td align="center"><a href="https://github.com/Susmita-Dey"><img src="https://avatars.githubusercontent.com/u/79099734?v=4" width="100px;" alt=""/><br /><sub><b>Susmita Dey</b></sub></a></td>
+<td align="center"><a href="https://github.com/imaaquibali"><img src="https://avatars.githubusercontent.com/u/84700316?v=4" width="100px;" alt=""/><br /><sub><b>Aaquib Ali</b></sub></a></td>
   </tr>
 </table>
+
 <h2>Project Contributors⭐</h2> 
 
 <a href="https://github.com/Susmita-Dey/TextUtils/graphs/contributors" align="center">

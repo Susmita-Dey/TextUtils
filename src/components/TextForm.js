@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function TextForm(props) {
   const handleUpClick = () => {
@@ -13,14 +13,14 @@ export default function TextForm(props) {
     setText(newText);
     props.showAlert("Converted to lowercase", "success");
   };
-  const handleSentenceClick = () =>{
+  const handleSentenceClick = () => {
     let newText = text.toLowerCase().split(' ');
     for (var i = 0; i < newText.length; i++) {
-        newText[i] = newText[i].charAt(0).toUpperCase() + newText[i].slice(1); 
-      }
-      newText = newText.join(' ');
-      setText(newText);
-      props.showAlert("Converted to Sentencecase", "success");
+      newText[i] = newText[i].charAt(0).toUpperCase() + newText[i].slice(1);
+    }
+    newText = newText.join(' ');
+    setText(newText);
+    props.showAlert("Converted to Sentencecase", "success");
   };
   const handleClearClick = () => {
     alert('Are you sure you want to clear text?');
@@ -32,7 +32,7 @@ export default function TextForm(props) {
     let msg = new SpeechSynthesisUtterance();
     msg.text = text;
     window.speechSynthesis.speak(msg);
-    if(window.confirm("Do you want to delete the text")) {
+    if (window.confirm("Do you want to delete the text")) {
       let newText = "";
       setText(newText);
       props.showAlert("Text has been cleared", "success");
@@ -59,13 +59,13 @@ export default function TextForm(props) {
     props.showAlert("Text has been copied to clipboard", "success");
   };
   const handleRemoveWhiteSpaceClick = () => {
-	 let res = "";
-	 for(let i = 0; i < text.length - 1; i++){
-		 if(text[i] == ' ' && text[i + 1] == ' ') continue;
-		 else res += text[i];
-	 }
-	 if(text[text.length - 1] != ' ') res += text[text.length - 1];
-	//console.log(res);
+    let res = "";
+    for (let i = 0; i < text.length - 1; i++) {
+      if (text[i] == ' ' && text[i + 1] == ' ') continue;
+      else res += text[i];
+    }
+    if (text[text.length - 1] != ' ') res += text[text.length - 1];
+    //console.log(res);
     setText(res);
     props.showAlert("White space removed", "success");
   };
@@ -111,9 +111,46 @@ export default function TextForm(props) {
     }
   };
 
+  //speech
+
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition
+  const mic = new SpeechRecognition()
+
+  mic.continuous = true
+  mic.interimResults = true
+  mic.lang = 'en-US'
+
   const [text, setText] = useState("");
+  const [isListening, setIsListening] = useState(false)
   // text="new text" // Wrong way to change the state
   // setText("new text") // Correct way to change the state
+
+  useEffect(() => {
+    handleListen()
+  }, [isListening])
+
+  const handleListen = () => {
+    if (isListening) {
+      mic.start()
+      console.log("start")
+    } else {
+      mic.stop()
+      console.log("stopeed")
+    }
+    mic.onresult = event => {
+
+      const transcript = Array.from(event.results)
+        .map(result => result[0])
+        .map(result => result.transcript)
+        .join('')
+      setText(transcript)
+      mic.onerror = event => {
+        console.log(event.error)
+      }
+    }
+  }
+
   return (
     <>
       <div
@@ -192,7 +229,7 @@ export default function TextForm(props) {
         >
           Listen Now
         </button>
-		<button
+        <button
           disabled={text.length === 0}
           className="btn btn-primary mx-1 my-1"
           onClick={handleRemoveWhiteSpaceClick}
@@ -205,6 +242,13 @@ export default function TextForm(props) {
           onClick={handleCopyClick}
         >
           Copy to Clipboard
+        </button>
+
+        <button
+          className="btn btn-primary mx-1 my-1"
+          onClick={() => setIsListening(prevState => !prevState)}
+        >
+          {isListening ? "Stop Listening" : "Start Listening"}
         </button>
       </div>
 
@@ -232,6 +276,3 @@ export default function TextForm(props) {
     </>
   );
 }
-
-
-
