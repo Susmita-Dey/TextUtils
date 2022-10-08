@@ -13,7 +13,7 @@ function App() {
   const [alert, setAlert] = useState(null);
 
   const toggleMode = () => {
-    Array.from(document.body.classList).forEach(element => {
+     Array.from(document.body.classList).forEach(element => {
         document.body.classList.remove(element)
       });
       Array.from(document.getElementById("myBox").classList).forEach(element => {
@@ -28,17 +28,15 @@ function App() {
       document.getElementById("myBox").classList.add("form-control")
       document.getElementById("nav").classList.add("navbar-"+mode, "bg-"+mode, "navbar", "navbar-expand-lg")
       
-      Array.from(document.querySelectorAll("nav-link")).forEach(element => {
-          element.style.color = "black !important"
-      });
-      
+    
       if(mode==="dark"){
         Array.from(document.body.classList).forEach(element => {
           document.body.classList.remove(element)
           // setMode('dark');
           document.body.style.color="#fff";
           document.body.style.backgroundColor="#042743";
-          document.querySelector(".nav-link").style.color = "white"
+          document.getElementById("home").style.color = "white"
+          document.getElementById("about").style.color = "white"
           document.querySelector(".navbar-brand").style.color = "white"
           document.querySelector("#myBox").style.color = "white";
         });
@@ -49,7 +47,6 @@ function App() {
           // setMode('dark');
           document.body.style.color="#000";
           document.body.style.backgroundColor="#fff";
-          document.querySelector(".nav-link").style.color = "black"
           document.querySelector(".navbar-brand").style.color = "black"
           document.querySelector("#myBox").style.color = "black";
         });
