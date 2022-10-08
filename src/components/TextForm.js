@@ -110,6 +110,21 @@ export default function TextForm(props) {
       props.showAlert("No link found", "warning");
     }
   };
+  
+  const handlereverseClick = () => {
+      // console.log("Reverse was clicked!" + text);
+    let newText = text.split(' ');
+    var i = 0;
+    let finalText = "";
+    
+    for(i=0;i<newText.length;i++)
+    {
+         finalText = (newText[i].split('').reverse().join('')) + " " + finalText;
+        //  console.log(newText[i].split('').reverse().join(''));
+    }
+    setText(finalText);
+    props.showAlert("The text has been reversed", "success");
+  };
 
   //speech
 
@@ -249,6 +264,13 @@ export default function TextForm(props) {
           onClick={handleCopyClick}
         >
           Copy to Clipboard
+        </button>
+        <button
+          disabled={text.length === 0}
+          className="btn btn-primary mx-1 my-1"
+          onClick={handlereverseClick}
+        >
+          Reverse the text
         </button>
 
         <button
