@@ -288,9 +288,11 @@ export default function TextForm(props) {
         }}
       >
         <h2>Your Text Summary</h2>
-        <p>
-          {text.length > 0 ? text.trim().split(/\s+/).length : 0} words,{" "}
-          {text.length} characters
+         <p>
+          <b>{text.replace(/\s/).split(' ').filter(value => value !== "").length}</b> words,  
+          <b> {text.trim().length }</b> characters, 
+          <b> {text.replace(/\n/g, ".").split('.').filter(value => value !== "").length}</b> statements,
+          <b> {text.split("?").length-1}</b> questions, <b>{text.split("!").length-1}</b> exclamations.
         </p>
         <p>
           {0.08 *
