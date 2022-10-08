@@ -12,37 +12,48 @@ function App() {
   const [mode, setMode] = useState("light");
   const [alert, setAlert] = useState(null);
 
-  // const removeBodyClasses = () => {
-  //   document.body.classList.remove("bg-light");
-  //   document.body.classList.remove("bg-dark");
-  //   document.body.classList.remove("bg-success");
-  //   document.body.classList.remove("bg-danger");
-  //   document.body.classList.remove("bg-warning");
-  //   document.body.classList.remove("bg-primary");
-  // };
-
   const toggleMode = () => {
-    // removeBodyClasses();
-    // console.log(cls);
-    // document.body.classList.add("bg-" + cls);
-    if (mode === "light") {
-      setMode("dark");
-      document.body.style.backgroundColor = "#042743";
-      showAlert("Dark mode has been enabled", "success");
-
-      // document.title = "TextUtils - Dark Mode";
-      // setInterval(() => {
-      //   document.title = "TextUtils - Dark Mode";
-      // }, 2000);
-      // setInterval(() => {
-      //   document.title = "Install TextUtils  now";
-      // }, 1500);
-    } else {
-      setMode("light");
-      document.body.style.backgroundColor = "white";
-      showAlert("Light mode has been enabled", "success");
-      // document.title = "TextUtils - Light Mode";
-    }
+    Array.from(document.body.classList).forEach(element => {
+        document.body.classList.remove(element)
+      });
+      Array.from(document.getElementById("myBox").classList).forEach(element => {
+        document.getElementById("myBox").classList.remove(element)
+      });
+      Array.from(document.getElementById("nav").classList).forEach(element => {
+          document.getElementById("nav").classList.remove(element)
+      });
+      
+      document.body.classList.add('bg-'+ mode)
+      document.getElementById("myBox").classList.add('bg-'+ mode)
+      document.getElementById("myBox").classList.add("form-control")
+      document.getElementById("nav").classList.add("navbar-"+mode, "bg-"+mode, "navbar", "navbar-expand-lg")
+      
+      Array.from(document.querySelectorAll("nav-link")).forEach(element => {
+          element.style.color = "black !important"
+      });
+      
+      if(mode==="dark"){
+        Array.from(document.body.classList).forEach(element => {
+          document.body.classList.remove(element)
+          // setMode('dark');
+          document.body.style.color="#fff";
+          document.body.style.backgroundColor="#042743";
+          document.querySelector(".nav-link").style.color = "white"
+          document.querySelector(".navbar-brand").style.color = "white"
+          document.querySelector("#myBox").style.color = "white";
+        });
+      }
+      else if(mode==="light"){
+        Array.from(document.body.classList).forEach(element => {
+          document.body.classList.remove(element)
+          // setMode('dark');
+          document.body.style.color="#000";
+          document.body.style.backgroundColor="#fff";
+          document.querySelector(".nav-link").style.color = "black"
+          document.querySelector(".navbar-brand").style.color = "black"
+          document.querySelector("#myBox").style.color = "black";
+        });
+      }
   };
 
   const showAlert = (message, type) => {
