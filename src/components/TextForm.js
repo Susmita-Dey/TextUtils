@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { Buffer } from 'buffer';
 
 export default function TextForm(props) {
+
+  //function to convert text into base64 encoding
+  const handlebase64Click = () => {
+    let encodedData = Buffer.from(text).toString('base64');
+    setText(encodedData);
+    props.showAlert("Converted to Base64 encoding", "success");
+  }
+  //---------------------------------------------
   const handleUpClick = () => {
     // console.log("Uppercase was clicked!" + text);
     let newText = text.toUpperCase();
@@ -199,6 +208,13 @@ export default function TextForm(props) {
           onClick={handleSentenceClick}
         >
           Convert to Sentencecase
+        </button>
+        <button
+          disabled={text.length === 0}
+          className="btn btn-primary mx-1 my-1"
+          onClick={handlebase64Click}
+        >
+          Encode to Base64
         </button>
         <button
           disabled={text.length === 0}
