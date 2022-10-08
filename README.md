@@ -9,7 +9,7 @@ It has the following features:
 - Extract Text
 - Copy to clipboard
 - Listen text and stop it
-- Count characters and words
+- Count characters, words, statements, questions, exclamations in the text
 - Preview input text
 
 ## Screenshot
