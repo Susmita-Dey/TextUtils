@@ -69,6 +69,17 @@ export default function TextForm(props) {
     setText(res);
     props.showAlert("White space removed", "success");
   };
+
+  /**
+   * Method used for removing special symbols from string
+   */
+  const handleRemoveSpecialCharacters = () => {
+    let string_without_specialsymbol = text.replace(/[^a-zA-Z0-9 ]/g, '');
+    setText(string_without_specialsymbol);
+    props.showAlert("Special Characters removed", "success");
+  };
+
+
   const handleOnChange = (event) => {
     // console.log("On change");
     setText(event.target.value);
@@ -265,6 +276,16 @@ export default function TextForm(props) {
         >
           Remove White Space
         </button>
+
+        <button
+          disabled={text.length === 0}
+          className="btn btn-primary mx-1 my-1"
+          onClick={handleRemoveSpecialCharacters}
+        >
+          Remove Special Characters
+        </button>
+
+
         <button
           disabled={text.length === 0}
           className="btn btn-primary mx-1 my-1"
