@@ -1,5 +1,10 @@
-# TextUtils
-TextUtils is a text analyzer, word counter and converter made with React. 
+<h1 align="center">TextUtils</h1>
+<p align="center">
+<img width="40%" src="https://user-images.githubusercontent.com/94471189/193782622-db0071f8-122e-4909-83a8-fe5da257febc.png" alt="main page">
+</p>
+<h3>
+TextUtils is a text analyzer, word counter and converter made with React.
+</h3>
 
 It has the following features:
 - Convert Text to UpperCase
