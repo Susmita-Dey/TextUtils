@@ -1,76 +1,90 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import { useState, useEffect } from 'react';
 import { Buffer } from 'buffer';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { textActions } from '../store/features/text/textSlice';
 
 export default function TextForm(props) {
-  // text="new text" // Wrong way to change the state
-  // setText("new text") // Correct way to change the state
-  const [text, setText] = useState('');
   const [isListening, setIsListening] = useState(false);
 
   /**
-   * Get the text state object from the store using useSelector
+   * Get the state of text from the redux store using useSelector
    */
   const textState = useSelector((state) => state.text);
+  /**
+   * dispatch function to invoke actions on the state
+   */
   const dispatch = useDispatch();
 
   console.log(textState);
-  useEffect(() => {
-    setText(textState.text);
-  }, [textState.text]);
 
+  /**
+   * Dispatch to undo text action
+   */
   const handleUndo = () => dispatch(textActions.undo());
 
+  /**
+   * Dispatch to redo text action
+   */
   const handleRedo = () => dispatch(textActions.redo());
 
-  //function to convert text into base64 encoding
+  /**
+   * Converts the text to base64
+   */
   const handlebase64Click = () => {
-    let encodedData = Buffer.from(text).toString('base64');
-    setText(encodedData);
-    dispatch(textActions.exec({ text: encodedData }));
+    const result = Buffer.from(textState.text).toString('base64');
+    dispatch(textActions.exec({ text: result }));
     props.showAlert('Converted to Base64 encoding', 'success');
   };
 
-  //---------------------------------------------
+  /**
+   * Converts the text to uppercase
+   */
   const handleUpClick = () => {
-    let newText = text.toUpperCase();
-    setText(newText);
-    dispatch(textActions.exec({ text: newText }));
+    const result = textState.text.toUpperCase();
+    dispatch(textActions.exec({ text: result }));
     props.showAlert(
       'Con dispatch(textActions.exec({ text: encodedData }));verted to uppercase',
       'success'
     );
   };
 
+  /**
+   * Converts the text to lowercase
+   */
   const handleLowClick = () => {
-    let newText = text.toLowerCase();
-    setText(newText);
-    dispatch(textActions.exec({ text: newText }));
+    const result = textState.text.toLowerCase();
+    dispatch(textActions.exec({ text: result }));
     props.showAlert('Converted to lowercase', 'success');
   };
 
+  /**
+   * Converts the text to sentancecase.
+   */
   const handleSentenceClick = () => {
-    let newText = text.toLowerCase().split(' ');
-    for (var i = 0; i < newText.length; i++) {
-      newText[i] = newText[i].charAt(0).toUpperCase() + newText[i].slice(1);
-    }
-    newText = newText.join(' ');
-    setText(newText);
-    dispatch(textActions.exec({ text: newText }));
+    const resultArray = textState.text.toLowerCase().split(' ');
+    for (var i = 0; i < resultArray.length; i++)
+      resultArray[i] =
+        resultArray[i].charAt(0).toUpperCase() + resultArray[i].slice(1);
+    const result = resultArray.join(' ');
+    dispatch(textActions.exec({ text: result }));
     props.showAlert('Converted to Sentencecase', 'success');
   };
 
+  /**
+   * Clears the text
+   */
   const handleClearClick = () => {
     if (window.confirm('Do you want to delete the text')) {
-      let newText = '';
-      setText(newText);
-      dispatch(textActions.exec({ text: newText }));
+      const result = '';
+      dispatch(textActions.exec({ text: result }));
       props.showAlert('Text has been cleared', 'success');
     }
   };
 
+  /**
+   * Invoke speech from text
+   */
   const handleSpeakClick = (event) => {
     let el = event.currentTarget;
     if (el.innerHTML === 'Listen Now') el.innerHTML = 'Stop Now';
@@ -79,90 +93,105 @@ export default function TextForm(props) {
     // el.innerHTML has already been changed here, hence checking for the opposite value
     if (el.innerHTML === 'Stop Now') {
       let msg = new SpeechSynthesisUtterance();
-      msg.text = text;
+      msg.text = textState.text;
       window.speechSynthesis.speak(msg);
     } else {
       let msg = new SpeechSynthesisUtterance();
-      msg.text = text;
+      msg.text = textState.text;
       window.speechSynthesis.cancel(msg);
     }
   };
 
+  /**
+   * Copies to clipboard
+   */
   const handleCopyClick = () => {
-    navigator.clipboard.writeText(text);
+    navigator.clipboard.writeText(textState.text);
     props.showAlert('Text has been copied to clipboard', 'success');
   };
 
+  /**
+   * Removes white space from the text
+   */
   const handleRemoveWhiteSpaceClick = () => {
-    let res = '';
-    for (let i = 0; i < text.length - 1; i++) {
-      if (text[i] == ' ' && text[i + 1] == ' ') continue;
-      else res += text[i];
+    let result = '';
+    for (let i = 0; i < textState.text.length - 1; i++) {
+      if (textState.text[i] == ' ' && textState.text[i + 1] == ' ') continue;
+      else result += textState.text[i];
     }
-    if (text[text.length - 1] != ' ') res += text[text.length - 1];
-    setText(res);
-    dispatch(textActions.exec({ text: res }));
+    if (textState.text[textState.text.length - 1] != ' ')
+      result += textState.text[textState.text.length - 1];
+    dispatch(textActions.exec({ text: result }));
     props.showAlert('White space removed', 'success');
   };
 
   /**
-   * Method used for removing special symbols from string
+   * Removes special characters from the text
    */
   const handleRemoveSpecialCharacters = () => {
-    let string_without_specialsymbol = text.replace(/[^a-zA-Z0-9 ]/g, '');
-    setText(string_without_specialsymbol);
-    dispatch(textActions.exec({ text: string_without_specialsymbol }));
+    const result = textState.text.replace(/[^a-zA-Z0-9 ]/g, '');
+    dispatch(textActions.exec({ text: result }));
     props.showAlert('Special Characters removed', 'success');
   };
 
-  const handleOnChange = (event) => setText(event.target.value);
+  /**
+   * Update the text on every keystroke
+   */
+  const handleOnChange = (event) =>
+    dispatch(textActions.updateText({ text: event.target.value }));
 
-  //To extract the words from the text.
+  /**
+   * Extracts the words from the text
+   */
   const handletextExtract = () => {
-    const letters = text.match(/[a-z]|[A-Z]/g);
+    const letters = textState.text.match(/[a-z]|[A-Z]/g);
     if (letters !== null) {
-      const res1 = letters.join('');
-      setText(res1);
-      dispatch(textActions.exec({ text: res1 }));
+      const result = letters.join('');
+      dispatch(textActions.exec({ text: result }));
       props.showAlert('Extracted the words from the text', 'success');
     } else props.showAlert('No words found in the text', 'warning');
   };
 
-  //To extract the number from the text.
+  /**
+   * Extract the numbers from the text
+   */
   const handleNumExtract = () => {
-    const digits = text.match(/[0-9]/g);
+    const digits = textState.text.match(/[0-9]/g);
     if (digits != null) {
-      const res = digits.join('');
-      setText(res);
-      dispatch(textActions.exec({ text: res }));
+      const result = digits.join('');
+      dispatch(textActions.exec({ text: result }));
       props.showAlert('Extracted the Numbers from the text', 'success');
     } else props.showAlert('No number found', 'warning');
   };
 
+  /**
+   * Extract the link from the text
+   */
   const handleLinkExtract = () => {
-    const link = text.match(
+    const link = textState.text.match(
       /(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/gim
     );
 
     if (link != null) {
-      const res = link.join('');
-      setText(res);
-      dispatch(textActions.exec({ text: res }));
+      const result = link.join('');
+      dispatch(textActions.exec({ text: result }));
       props.showAlert('Extracted the Links from the text', 'success');
     } else {
       props.showAlert('No link found', 'warning');
     }
   };
 
+  /**
+   * Reverses the text
+   */
   const handlereverseClick = () => {
-    let newText = text.split(' ');
-    var i = 0;
-    let finalText = '';
+    const newText = textState.text.split(' ');
+    let i = 0;
+    let result = '';
 
     for (i = 0; i < newText.length; i++)
-      finalText = newText[i].split('').reverse().join('') + ' ' + finalText;
-    setText(finalText);
-    dispatch(textActions.exec({ text: finalText }));
+      result = newText[i].split('').reverse().join('') + ' ' + result;
+    dispatch(textActions.exec({ text: result }));
     props.showAlert('The text has been reversed', 'success');
   };
 
@@ -192,19 +221,21 @@ export default function TextForm(props) {
         .map((result) => result[0])
         .map((result) => result.transcript)
         .join('');
-      setText(transcript);
+      dispatch(textActions.updateText(transcript));
       mic.onerror = (event) => {
         console.log(event.error);
       };
     };
   };
 
+  /**
+   * Replace the word with given prompt
+   */
   const replace = () => {
-    let word = prompt('what you want to replace');
-    let newword = prompt('write the new word');
-    let newText = text.split(word).join(newword);
-    setText(newText);
-    dispatch(textActions.exec({ text: newText }));
+    const word = prompt('what you want to replace');
+    const newWord = prompt('write the new word');
+    const result = textState.text.split(word).join(newWord);
+    dispatch(textActions.exec({ text: result }));
   };
 
   return (
@@ -221,7 +252,7 @@ export default function TextForm(props) {
             className="form-control"
             id="myBox"
             rows="8"
-            value={text}
+            value={textState.text}
             onChange={handleOnChange}
             style={{
               backgroundColor: props.mode === 'dark' ? '#13466e' : 'white',
@@ -230,70 +261,70 @@ export default function TextForm(props) {
           ></textarea>
         </div>
         <button
-          disabled={text.length === 0}
+          disabled={textState.text.length === 0}
           className="btn btn-primary mx-1 my-1"
           onClick={handleUpClick}
         >
           Convert to Uppercase
         </button>
         <button
-          disabled={text.length === 0}
+          disabled={textState.text.length === 0}
           className="btn btn-primary mx-1 my-1"
           onClick={handleLowClick}
         >
           Convert to Lowercase
         </button>
         <button
-          disabled={text.length === 0}
+          disabled={textState.text.length === 0}
           className="btn btn-primary mx-1 my-1"
           onClick={handleSentenceClick}
         >
           Convert to Sentencecase
         </button>
         <button
-          disabled={text.length === 0}
+          disabled={textState.text.length === 0}
           className="btn btn-primary mx-1 my-1"
           onClick={handlebase64Click}
         >
           Encode to Base64
         </button>
         <button
-          disabled={text.length === 0}
+          disabled={textState.text.length === 0}
           className="btn btn-primary mx-1 my-1"
           onClick={handleClearClick}
         >
           Clear Text
         </button>
         <button
-          disabled={text.length === 0}
+          disabled={textState.text.length === 0}
           className="btn btn-primary mx-1 my-1"
           onClick={handleNumExtract}
         >
           Extract Numbers
         </button>
         <button
-          disabled={text.length === 0}
+          disabled={textState.text.length === 0}
           className="btn btn-primary mx-1 my-1"
           onClick={handleLinkExtract}
         >
           Extract Links
         </button>
         <button
-          disabled={text.length === 0}
+          disabled={textState.text.length === 0}
           className="btn btn-primary mx-1 my-1"
           onClick={handletextExtract}
         >
           Extract Text
         </button>
         <button
-          disabled={text.length === 0}
+          disabled={textState.text.length === 0}
           className="btn btn-primary mx-1 my-1"
           onClick={handleSpeakClick}
         >
           Listen Now
         </button>
         <button
-          disabled={text.length === 0}
+          disabled={textState.text.length === 0}
           className="btn btn-primary mx-1 my-1"
           onClick={handleRemoveWhiteSpaceClick}
         >
@@ -301,7 +332,7 @@ export default function TextForm(props) {
         </button>
 
         <button
-          disabled={text.length === 0}
+          disabled={textState.text.length === 0}
           className="btn btn-primary mx-1 my-1"
           onClick={handleRemoveSpecialCharacters}
         >
@@ -309,14 +340,14 @@ export default function TextForm(props) {
         </button>
 
         <button
-          disabled={text.length === 0}
+          disabled={textState.text.length === 0}
           className="btn btn-primary mx-1 my-1"
           onClick={handleCopyClick}
         >
           Copy to Clipboard
         </button>
         <button
-          disabled={text.length === 0}
+          disabled={textState.text.length === 0}
           className="btn btn-primary mx-1 my-1"
           onClick={handlereverseClick}
         >
@@ -331,7 +362,7 @@ export default function TextForm(props) {
         </button>
 
         <button
-          disabled={text.length === 0}
+          disabled={textState.text.length === 0}
           className="btn btn-primary mx-1 my-1"
           onClick={replace}
         >
@@ -363,36 +394,38 @@ export default function TextForm(props) {
         <p>
           <b>
             {
-              text
+              textState.text
                 .replace(/\s/)
                 .split(' ')
                 .filter((value) => value !== '').length
             }
           </b>{' '}
           words,
-          <b> {text.trim().length}</b> characters,
+          <b> {textState.text.trim().length}</b> characters,
           <b>
             {' '}
             {
-              text
+              textState.text
                 .replace(/\n/g, '.')
                 .split('.')
                 .filter((value) => value !== '').length
             }
           </b>{' '}
           statements,
-          <b> {text.split('?').length - 1}</b> questions,{' '}
-          <b>{text.split('!').length - 1}</b> exclamations.
+          <b> {textState.text.split('?').length - 1}</b> questions,{' '}
+          <b>{textState.text.split('!').length - 1}</b> exclamations.
         </p>
         <p>
           {0.08 *
-            text.split(' ').filter((element) => {
+            textState.text.split(' ').filter((element) => {
               return element.length !== 0;
             }).length}{' '}
           Minutes read
         </p>
         <h2>Preview</h2>
-        <p>{text.length > 0 ? text : 'Nothing to preview!!'}</p>
+        <p>
+          {textState.text.length > 0 ? textState.text : 'Nothing to preview!!'}
+        </p>
       </div>
     </>
   );

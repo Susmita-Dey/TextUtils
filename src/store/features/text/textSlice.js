@@ -23,6 +23,9 @@ const textSlice = createSlice({
       state.undoStack.push(state.text);
       state.text = action.payload.text;
     },
+    updateText(state, action) {
+      state.text = action.payload.text;
+    },
   },
 });
 
