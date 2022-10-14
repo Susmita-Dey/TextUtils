@@ -1,49 +1,56 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect, useReducer } from 'react';
 import { Buffer } from 'buffer';
-import { initialTextState, textReducer } from "../reducers/textReducer";
+import { useSelector, useDispatch } from 'react-redux';
+
+import { textActions } from '../store/features/text/textSlice';
 
 export default function TextForm(props) {
   // text="new text" // Wrong way to change the state
   // setText("new text") // Correct way to change the state
   const [text, setText] = useState('');
   const [isListening, setIsListening] = useState(false);
-  const [textState, dispatchTextAction] = useReducer(textReducer, initialTextState);
+
+  /**
+   * Get the text state object from the store using useSelector
+   */
+  const textState = useSelector((state) => state.text);
+  const dispatch = useDispatch();
 
   console.log(textState);
   useEffect(() => {
     setText(textState.text);
-  }, [textState.text])
+  }, [textState.text]);
 
-  const handleUndo =  () => {
-    dispatchTextAction({type: 'undo'});
-  }
+  const handleUndo = () => dispatch(textActions.undo());
 
-  const handleRedo = () => {
-    dispatchTextAction({type: 'redo'});
-  }
+  const handleRedo = () => dispatch(textActions.redo());
 
   //function to convert text into base64 encoding
   const handlebase64Click = () => {
     let encodedData = Buffer.from(text).toString('base64');
     setText(encodedData);
-    dispatchTextAction({ type: 'exec', payload: { text: encodedData } });
-    props.showAlert("Converted to Base64 encoding", "success");
-  }
+    dispatch(textActions.exec({ text: encodedData }));
+    props.showAlert('Converted to Base64 encoding', 'success');
+  };
+
   //---------------------------------------------
   const handleUpClick = () => {
-    // console.log("Uppercase was clicked!" + text);
     let newText = text.toUpperCase();
     setText(newText);
-    dispatchTextAction({type: 'exec', payload: {text: newText}});
-    props.showAlert("Converted to uppercase", "success");
+    dispatch(textActions.exec({ text: newText }));
+    props.showAlert(
+      'Con dispatch(textActions.exec({ text: encodedData }));verted to uppercase',
+      'success'
+    );
   };
+
   const handleLowClick = () => {
-    // console.log("Lowercase was clicked!" + text);
     let newText = text.toLowerCase();
     setText(newText);
-    dispatchTextAction({ type: 'exec', payload: { text: newText } });
-    props.showAlert("Converted to lowercase", "success");
+    dispatch(textActions.exec({ text: newText }));
+    props.showAlert('Converted to lowercase', 'success');
   };
+
   const handleSentenceClick = () => {
     let newText = text.toLowerCase().split(' ');
     for (var i = 0; i < newText.length; i++) {
@@ -51,24 +58,26 @@ export default function TextForm(props) {
     }
     newText = newText.join(' ');
     setText(newText);
-    dispatchTextAction({ type: 'exec', payload: { text: newText } });
+    dispatch(textActions.exec({ text: newText }));
     props.showAlert('Converted to Sentencecase', 'success');
   };
+
   const handleClearClick = () => {
-    if (window.confirm("Do you want to delete the text")) {
-      let newText = "";
+    if (window.confirm('Do you want to delete the text')) {
+      let newText = '';
       setText(newText);
-    dispatchTextAction({ type: 'exec', payload: { text: newText } });
-    props.showAlert('Text has been cleared', 'success');
+      dispatch(textActions.exec({ text: newText }));
+      props.showAlert('Text has been cleared', 'success');
     }
   };
+
   const handleSpeakClick = (event) => {
     let el = event.currentTarget;
-    if (el.innerHTML === "Listen Now") el.innerHTML = "Stop Now"
-    else el.innerHTML = "Listen Now"
+    if (el.innerHTML === 'Listen Now') el.innerHTML = 'Stop Now';
+    else el.innerHTML = 'Listen Now';
 
     // el.innerHTML has already been changed here, hence checking for the opposite value
-    if (el.innerHTML === "Stop Now") {
+    if (el.innerHTML === 'Stop Now') {
       let msg = new SpeechSynthesisUtterance();
       msg.text = text;
       window.speechSynthesis.speak(msg);
@@ -78,20 +87,21 @@ export default function TextForm(props) {
       window.speechSynthesis.cancel(msg);
     }
   };
+
   const handleCopyClick = () => {
     navigator.clipboard.writeText(text);
-    props.showAlert("Text has been copied to clipboard", "success");
+    props.showAlert('Text has been copied to clipboard', 'success');
   };
+
   const handleRemoveWhiteSpaceClick = () => {
-    let res = "";
+    let res = '';
     for (let i = 0; i < text.length - 1; i++) {
       if (text[i] == ' ' && text[i + 1] == ' ') continue;
       else res += text[i];
     }
     if (text[text.length - 1] != ' ') res += text[text.length - 1];
-    //console.log(res);
     setText(res);
-    dispatchTextAction({ type: 'exec', payload: { text: res } });
+    dispatch(textActions.exec({ text: res }));
     props.showAlert('White space removed', 'success');
   };
 
@@ -101,42 +111,32 @@ export default function TextForm(props) {
   const handleRemoveSpecialCharacters = () => {
     let string_without_specialsymbol = text.replace(/[^a-zA-Z0-9 ]/g, '');
     setText(string_without_specialsymbol);
-    dispatchTextAction({
-      type: 'exec',
-      payload: { text: string_without_specialsymbol },
-    });
+    dispatch(textActions.exec({ text: string_without_specialsymbol }));
     props.showAlert('Special Characters removed', 'success');
   };
 
-
-  const handleOnChange = (event) => {
-    // console.log("On change");
-    setText(event.target.value);
-  };
+  const handleOnChange = (event) => setText(event.target.value);
 
   //To extract the words from the text.
   const handletextExtract = () => {
     const letters = text.match(/[a-z]|[A-Z]/g);
     if (letters !== null) {
-      const res1 = letters.join("");
+      const res1 = letters.join('');
       setText(res1);
-    dispatchTextAction({ type: 'exec', payload: { text: res1 } });
-    props.showAlert('Extracted the words from the text', 'success');
-    } else {
-      props.showAlert("No words found in the text", "warning");
-    }
+      dispatch(textActions.exec({ text: res1 }));
+      props.showAlert('Extracted the words from the text', 'success');
+    } else props.showAlert('No words found in the text', 'warning');
   };
+
   //To extract the number from the text.
   const handleNumExtract = () => {
     const digits = text.match(/[0-9]/g);
     if (digits != null) {
-      const res = digits.join("");
+      const res = digits.join('');
       setText(res);
-    dispatchTextAction({ type: 'exec', payload: { text: res } });
-    props.showAlert('Extracted the Numbers from the text', 'success');
-    } else {
-      props.showAlert("No number found", "warning");
-    }
+      dispatch(textActions.exec({ text: res }));
+      props.showAlert('Extracted the Numbers from the text', 'success');
+    } else props.showAlert('No number found', 'warning');
   };
 
   const handleLinkExtract = () => {
@@ -145,73 +145,66 @@ export default function TextForm(props) {
     );
 
     if (link != null) {
-      const res = link.join("");
+      const res = link.join('');
       setText(res);
-    dispatchTextAction({ type: 'exec', payload: { text: res } });
-    props.showAlert('Extracted the Links from the text', 'success');
+      dispatch(textActions.exec({ text: res }));
+      props.showAlert('Extracted the Links from the text', 'success');
     } else {
-      props.showAlert("No link found", "warning");
+      props.showAlert('No link found', 'warning');
     }
   };
-  
+
   const handlereverseClick = () => {
-      // console.log("Reverse was clicked!" + text);
     let newText = text.split(' ');
     var i = 0;
-    let finalText = "";
-    
-    for(i=0;i<newText.length;i++)
-    {
-         finalText = (newText[i].split('').reverse().join('')) + " " + finalText;
-        //  console.log(newText[i].split('').reverse().join(''));
-    }
+    let finalText = '';
+
+    for (i = 0; i < newText.length; i++)
+      finalText = newText[i].split('').reverse().join('') + ' ' + finalText;
     setText(finalText);
-    dispatchTextAction({ type: 'exec', payload: { text: finalText } });
+    dispatch(textActions.exec({ text: finalText }));
     props.showAlert('The text has been reversed', 'success');
   };
 
   //speech
-
   const SpeechRecognition =
-    window.SpeechRecognition || window.webkitSpeechRecognition
-  const mic = new SpeechRecognition()
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+  const mic = new SpeechRecognition();
 
-  mic.continuous = true
-  mic.interimResults = true
-  mic.lang = 'en-US'
-
+  mic.continuous = true;
+  mic.interimResults = true;
+  mic.lang = 'en-US';
 
   useEffect(() => {
-    handleListen()
-  }, [isListening])
+    handleListen();
+  }, [isListening]);
 
   const handleListen = () => {
     if (isListening) {
-      mic.start()
-      console.log("start")
+      mic.start();
+      console.log('start');
     } else {
-      mic.stop()
-      console.log("stopeed")
+      mic.stop();
+      console.log('stopeed');
     }
-    mic.onresult = event => {
-
+    mic.onresult = (event) => {
       const transcript = Array.from(event.results)
-        .map(result => result[0])
-        .map(result => result.transcript)
-        .join('')
-      setText(transcript)
-      mic.onerror = event => {
-        console.log(event.error)
-      }
-    }
-  }
+        .map((result) => result[0])
+        .map((result) => result.transcript)
+        .join('');
+      setText(transcript);
+      mic.onerror = (event) => {
+        console.log(event.error);
+      };
+    };
+  };
 
   const replace = () => {
     let word = prompt('what you want to replace');
     let newword = prompt('write the new word');
     let newText = text.split(word).join(newword);
     setText(newText);
-    dispatchTextAction({ type: 'exec', payload: { text: newText } });
+    dispatch(textActions.exec({ text: newText }));
   };
 
   return (
