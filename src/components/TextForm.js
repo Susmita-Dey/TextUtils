@@ -218,9 +218,6 @@ export default function TextForm(props) {
     <>
       <div
         className="container"
-        style={{
-          color: props.mode === 'dark' ? 'white' : '#042743',
-        }}
       >
         <h1 className="mb-2">{props.heading}</h1>
         <div className="mb-3">
@@ -238,123 +235,143 @@ export default function TextForm(props) {
         </div>
         <button
           disabled={text.length === 0}
-          className="btn btn-primary mx-1 my-1"
+          className="btn  mx-1 my-1"
           onClick={handleUpClick}
+          style={{border:"1px solid black"}}
         >
           Convert to Uppercase
         </button>
         <button
           disabled={text.length === 0}
-          className="btn btn-primary mx-1 my-1"
+          className="btn  mx-1 my-1"
           onClick={handleLowClick}
+          style={{border:"1px solid black"}}
         >
           Convert to Lowercase
         </button>
         <button
           disabled={text.length === 0}
-          className="btn btn-primary mx-1 my-1"
+          className="btn  mx-1 my-1"
           onClick={handleSentenceClick}
+          style={{border:"1px solid black"}}
         >
           Convert to Sentencecase
         </button>
         <button
           disabled={text.length === 0}
-          className="btn btn-primary mx-1 my-1"
+          className="btn  mx-1 my-1"
           onClick={handlebase64Click}
+          style={{border:"1px solid black"}}
         >
           Encode to Base64
         </button>
         <button
           disabled={text.length === 0}
-          className="btn btn-primary mx-1 my-1"
+          className="btn  mx-1 my-1"
           onClick={handleClearClick}
+          style={{border:"1px solid black"}}
         >
           Clear Text
         </button>
         <button
           disabled={text.length === 0}
-          className="btn btn-primary mx-1 my-1"
+          className="btn  mx-1 my-1"
           onClick={handleNumExtract}
+          style={{border:"1px solid black"}}
         >
           Extract Numbers
         </button>
         <button
           disabled={text.length === 0}
-          className="btn btn-primary mx-1 my-1"
+          className="btn  mx-1 my-1"
           onClick={handleLinkExtract}
+          style={{border:"1px solid black"}}
         >
           Extract Links
         </button>
         <button
           disabled={text.length === 0}
-          className="btn btn-primary mx-1 my-1"
+          className="btn  mx-1 my-1"
           onClick={handletextExtract}
+          style={{border:"1px solid black"}}
         >
           Extract Text
         </button>
         <button
           disabled={text.length === 0}
-          className="btn btn-primary mx-1 my-1"
+          className="btn  mx-1 my-1"
           onClick={handleSpeakClick}
+          style={{border:"1px solid black"}}
         >
           Listen Now
         </button>
         <button
           disabled={text.length === 0}
-          className="btn btn-primary mx-1 my-1"
+          className="btn  mx-1 my-1"
           onClick={handleRemoveWhiteSpaceClick}
+          style={{border:"1px solid black"}}
         >
           Remove White Space
         </button>
 
         <button
           disabled={text.length === 0}
-          className="btn btn-primary mx-1 my-1"
+          className="btn  mx-1 my-1"
           onClick={handleRemoveSpecialCharacters}
+          style={{border:"1px solid black"}}
         >
           Remove Special Characters
         </button>
 
         <button
           disabled={text.length === 0}
-          className="btn btn-primary mx-1 my-1"
+          className="btn mx-1 my-1"
           onClick={handleCopyClick}
+          style={{border:"1px solid black"}}
         >
           Copy to Clipboard
         </button>
         <button
           disabled={text.length === 0}
-          className="btn btn-primary mx-1 my-1"
+          className="btn  mx-1 my-1"
           onClick={handlereverseClick}
+          style={{border:"1px solid black"}}
         >
           Reverse the text
         </button>
 
         <button
-          className="btn btn-primary mx-1 my-1"
+          className="btn  mx-1 my-1"
           onClick={() => setIsListening((prevState) => !prevState)}
+          
+          style={{border:"1px solid black"}}
         >
           {isListening ? 'Stop Listening' : 'Start Listening'}
         </button>
 
         <button
           disabled={text.length === 0}
-          className="btn btn-primary mx-1 my-1"
+          className="btn  mx-1 my-1"
+          
+          style={{border:"1px solid black"}}
           onClick={replace}
         >
           change text
         </button>
         <button
           disabled={textState.undoStack.length === 0}
-          className="btn btn-primary mx-1 my-1"
+          className="btn  mx-1 my-1"
+          
+          style={{border:"1px solid black"}}
           onClick={handleUndo}
         >
           Undo Action
         </button>
         <button
           disabled={textState.redoStack.length === 0}
-          className="btn btn-primary mx-1 my-1"
+          className="btn  mx-1 my-1"
           onClick={handleRedo}
+          style={{border:"1px solid black"}}
         >
           Redo Action
         </button>
@@ -362,9 +379,6 @@ export default function TextForm(props) {
 
       <div
         className="container my-3"
-        style={{
-          color: props.mode === 'dark' ? 'white' : '#042743',
-        }}
       >
         <h2>Your Text Summary</h2>
         <p>
