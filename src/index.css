@@ -11,6 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+.mar{
+    min-height: 66.4vh;
+}
 
 .accordion-button::after {
   filter: invert(1);
