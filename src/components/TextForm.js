@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Buffer } from 'buffer';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { textActions } from '../store/features/text/textSlice';
@@ -32,8 +31,7 @@ export default function TextForm(props) {
    * Converts the text to base64
    */
   const handlebase64Click = () => {
-    const result = Buffer.from(textState.text).toString('base64');
-    dispatch(textActions.exec({ text: result }));
+    dispatch(textActions.base64());
     props.showAlert('Converted to Base64 encoding', 'success');
   };
 
@@ -41,20 +39,15 @@ export default function TextForm(props) {
    * Converts the text to uppercase
    */
   const handleUpClick = () => {
-    const result = textState.text.toUpperCase();
-    dispatch(textActions.exec({ text: result }));
-    props.showAlert(
-      'Con dispatch(textActions.exec({ text: encodedData }));verted to uppercase',
-      'success'
-    );
+    dispatch(textActions.upperCase());
+    props.showAlert('Converted to uppercase', 'success');
   };
 
   /**
    * Converts the text to lowercase
    */
   const handleLowClick = () => {
-    const result = textState.text.toLowerCase();
-    dispatch(textActions.exec({ text: result }));
+    dispatch(textActions.lowerCase());
     props.showAlert('Converted to lowercase', 'success');
   };
 
@@ -62,12 +55,7 @@ export default function TextForm(props) {
    * Converts the text to sentancecase.
    */
   const handleSentenceClick = () => {
-    const resultArray = textState.text.toLowerCase().split(' ');
-    for (var i = 0; i < resultArray.length; i++)
-      resultArray[i] =
-        resultArray[i].charAt(0).toUpperCase() + resultArray[i].slice(1);
-    const result = resultArray.join(' ');
-    dispatch(textActions.exec({ text: result }));
+    dispatch(textActions.sentenceCase());
     props.showAlert('Converted to Sentencecase', 'success');
   };
 
@@ -75,15 +63,14 @@ export default function TextForm(props) {
    * Clears the text
    */
   const handleClearClick = () => {
-    if (window.confirm('Do you want to delete the text')) {
-      const result = '';
-      dispatch(textActions.exec({ text: result }));
-      props.showAlert('Text has been cleared', 'success');
-    }
+    if (!window.confirm('Do you want to delete the text')) return;
+    dispatch(textActions.clear());
+    props.showAlert('Text has been cleared', 'success');
   };
 
   /**
    * Invoke speech from text
+   * TODO: Can better modify the function
    */
   const handleSpeakClick = (event) => {
     let el = event.currentTarget;
@@ -114,14 +101,7 @@ export default function TextForm(props) {
    * Removes white space from the text
    */
   const handleRemoveWhiteSpaceClick = () => {
-    let result = '';
-    for (let i = 0; i < textState.text.length - 1; i++) {
-      if (textState.text[i] == ' ' && textState.text[i + 1] == ' ') continue;
-      else result += textState.text[i];
-    }
-    if (textState.text[textState.text.length - 1] != ' ')
-      result += textState.text[textState.text.length - 1];
-    dispatch(textActions.exec({ text: result }));
+    dispatch(textActions.removeWhiteSpace());
     props.showAlert('White space removed', 'success');
   };
 
@@ -129,13 +109,13 @@ export default function TextForm(props) {
    * Removes special characters from the text
    */
   const handleRemoveSpecialCharacters = () => {
-    const result = textState.text.replace(/[^a-zA-Z0-9 ]/g, '');
-    dispatch(textActions.exec({ text: result }));
+    dispatch(textActions.removeSpecialCharacters());
     props.showAlert('Special Characters removed', 'success');
   };
 
   /**
    * Update the text on every keystroke
+   * TODO: Optimize
    */
   const handleOnChange = (event) =>
     dispatch(textActions.updateText({ text: event.target.value }));
@@ -144,54 +124,29 @@ export default function TextForm(props) {
    * Extracts the words from the text
    */
   const handletextExtract = () => {
-    const letters = textState.text.match(/[a-z]|[A-Z]/g);
-    if (letters !== null) {
-      const result = letters.join('');
-      dispatch(textActions.exec({ text: result }));
-      props.showAlert('Extracted the words from the text', 'success');
-    } else props.showAlert('No words found in the text', 'warning');
+    dispatch(textActions.extractText({ props }));
   };
 
   /**
    * Extract the numbers from the text
    */
   const handleNumExtract = () => {
-    const digits = textState.text.match(/[0-9]/g);
-    if (digits != null) {
-      const result = digits.join('');
-      dispatch(textActions.exec({ text: result }));
-      props.showAlert('Extracted the Numbers from the text', 'success');
-    } else props.showAlert('No number found', 'warning');
+    dispatch(textActions.extractNumbers({ props }));
   };
 
   /**
    * Extract the link from the text
+   * TODO: Handle alerts efficiently
    */
   const handleLinkExtract = () => {
-    const link = textState.text.match(
-      /(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/gim
-    );
-
-    if (link != null) {
-      const result = link.join('');
-      dispatch(textActions.exec({ text: result }));
-      props.showAlert('Extracted the Links from the text', 'success');
-    } else {
-      props.showAlert('No link found', 'warning');
-    }
+    dispatch(textActions.extractLink({ props }));
   };
 
   /**
    * Reverses the text
    */
   const handlereverseClick = () => {
-    const newText = textState.text.split(' ');
-    let i = 0;
-    let result = '';
-
-    for (i = 0; i < newText.length; i++)
-      result = newText[i].split('').reverse().join('') + ' ' + result;
-    dispatch(textActions.exec({ text: result }));
+    dispatch(textActions.reverseText());
     props.showAlert('The text has been reversed', 'success');
   };
 
@@ -234,8 +189,7 @@ export default function TextForm(props) {
   const replace = () => {
     const word = prompt('what you want to replace');
     const newWord = prompt('write the new word');
-    const result = textState.text.split(word).join(newWord);
-    dispatch(textActions.exec({ text: result }));
+    dispatch(textActions.replaceText({ word, newWord }));
   };
 
   return (
