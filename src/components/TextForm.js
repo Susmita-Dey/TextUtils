@@ -11,6 +11,7 @@ export default function TextForm(props) {
    */
   const textState = useSelector((state) => state.text);
   const themeState = useSelector((state) => state.theme);
+  const alertState = useSelector((state) => state.alert);
   /**
    * dispatch function to invoke actions on the state
    */
@@ -33,7 +34,6 @@ export default function TextForm(props) {
    */
   const handlebase64Click = () => {
     dispatch(textActions.base64());
-    props.showAlert('Converted to Base64 encoding', 'success');
   };
 
   /**
@@ -41,7 +41,6 @@ export default function TextForm(props) {
    */
   const handleUpClick = () => {
     dispatch(textActions.upperCase());
-    props.showAlert('Converted to uppercase', 'success');
   };
 
   /**
@@ -49,7 +48,6 @@ export default function TextForm(props) {
    */
   const handleLowClick = () => {
     dispatch(textActions.lowerCase());
-    props.showAlert('Converted to lowercase', 'success');
   };
 
   /**
@@ -57,7 +55,6 @@ export default function TextForm(props) {
    */
   const handleSentenceClick = () => {
     dispatch(textActions.sentenceCase());
-    props.showAlert('Converted to Sentencecase', 'success');
   };
 
   /**
@@ -66,7 +63,6 @@ export default function TextForm(props) {
   const handleClearClick = () => {
     if (!window.confirm('Do you want to delete the text')) return;
     dispatch(textActions.clear());
-    props.showAlert('Text has been cleared', 'success');
   };
 
   /**
@@ -95,7 +91,6 @@ export default function TextForm(props) {
    */
   const handleCopyClick = () => {
     navigator.clipboard.writeText(textState.text);
-    props.showAlert('Text has been copied to clipboard', 'success');
   };
 
   /**
@@ -103,7 +98,6 @@ export default function TextForm(props) {
    */
   const handleRemoveWhiteSpaceClick = () => {
     dispatch(textActions.removeWhiteSpace());
-    props.showAlert('White space removed', 'success');
   };
 
   /**
@@ -111,7 +105,6 @@ export default function TextForm(props) {
    */
   const handleRemoveSpecialCharacters = () => {
     dispatch(textActions.removeSpecialCharacters());
-    props.showAlert('Special Characters removed', 'success');
   };
 
   /**
@@ -125,14 +118,14 @@ export default function TextForm(props) {
    * Extracts the words from the text
    */
   const handletextExtract = () => {
-    dispatch(textActions.extractText({ props }));
+    dispatch(textActions.extractText());
   };
 
   /**
    * Extract the numbers from the text
    */
   const handleNumExtract = () => {
-    dispatch(textActions.extractNumbers({ props }));
+    dispatch(textActions.extractNumbers());
   };
 
   /**
@@ -140,7 +133,7 @@ export default function TextForm(props) {
    * TODO: Handle alerts efficiently
    */
   const handleLinkExtract = () => {
-    dispatch(textActions.extractLink({ props }));
+    dispatch(textActions.extractLink());
   };
 
   /**
@@ -148,7 +141,6 @@ export default function TextForm(props) {
    */
   const handlereverseClick = () => {
     dispatch(textActions.reverseText());
-    props.showAlert('The text has been reversed', 'success');
   };
 
   //speech

@@ -1,0 +1,58 @@
+{
+  "text/undo": {
+    "warning": "Can not be undone.",
+    "success": "Action undone."
+  },
+  "text/redo": {
+    "warning": "Can not be redone.",
+    "success": "Action redone"
+  },
+  "text/base64": {
+    "warning": "Couldn't perform base64.",
+    "success": "Converted text to base64."
+  },
+  "text/upperCase": {
+    "warning": "Coudln't convert to uppercase.",
+    "success": "Converted to uppercase."
+  },
+  "text/lowerCase": {
+    "warning": "Coudln't convert to lowercase.",
+    "success": "Converted to lowercase."
+  },
+  "text/sentenceCase": {
+    "warning": "Coudln't convert to sentencecase.",
+    "success": "Converted to sentencecase."
+  },
+  "text/clear": {
+    "warning": "Couldn't clear text.",
+    "success": "Cleared text"
+  },
+  "text/removeWhiteSpace": {
+    "warning": "Couldn't remove white spaces.",
+    "success": "Removed white spaces"
+  },
+  "text/removeSpecialCharacters": {
+    "warning": "Couldn't remove special characters.",
+    "success": "Removed special characters."
+  },
+  "text/extractText": {
+    "warning": "Couldn't extract text.",
+    "success": "Extracted text."
+  },
+  "text/extractNumbers": {
+    "warning": "Couldn't extract numbers.",
+    "success": "Extracted text."
+  },
+  "text/extractLink": {
+    "warning": "Coudln't extract link.",
+    "success": "Extracted link."
+  },
+  "text/reverseText": {
+    "warning": "Couldn't reverse text.",
+    "success": "Reversed text"
+  },
+  "text/replaceText": {
+    "warning": "Couldn't replace text.",
+    "success": "Replaced text"
+  }
+}

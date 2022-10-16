@@ -9,7 +9,6 @@ import Footer from './components/Footer';
 import ErrorPage from './components/ErrorPage';
 
 function App() {
-  const [mode, setMode] = useState('light');
   const [alert, setAlert] = useState(null);
 
   // const removeBodyClasses = () => {
@@ -59,7 +58,7 @@ function App() {
     <>
       {/* <Navbar title="TextUtils" aboutText="About TextUtils" /> */}
       <Navbar title="TextUtils" />
-      <Alert alert={alert} />
+      <Alert />
       <div className="container my-3">
         <Routes>
           {/* /users --> Component 1
