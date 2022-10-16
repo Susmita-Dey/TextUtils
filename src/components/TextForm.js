@@ -10,6 +10,7 @@ export default function TextForm(props) {
    * Get the state of text from the redux store using useSelector
    */
   const textState = useSelector((state) => state.text);
+  const themeState = useSelector((state) => state.theme);
   /**
    * dispatch function to invoke actions on the state
    */
@@ -197,7 +198,7 @@ export default function TextForm(props) {
       <div
         className="container"
         style={{
-          color: props.mode === 'dark' ? 'white' : '#042743',
+          color: themeState.color,
         }}
       >
         <h1 className="mb-2">{props.heading}</h1>
@@ -209,8 +210,8 @@ export default function TextForm(props) {
             value={textState.text}
             onChange={handleOnChange}
             style={{
-              backgroundColor: props.mode === 'dark' ? '#13466e' : 'white',
-              color: props.mode === 'dark' ? 'white' : '#042743',
+              backgroundColor: themeState.backgroundColor,
+              color: themeState.color,
             }}
           ></textarea>
         </div>
@@ -341,7 +342,7 @@ export default function TextForm(props) {
       <div
         className="container my-3"
         style={{
-          color: props.mode === 'dark' ? 'white' : '#042743',
+          color: themeState.color,
         }}
       >
         <h2>Your Text Summary</h2>

@@ -1,15 +1,15 @@
-import { useState } from "react";
-import { Routes, Route } from "react-router-dom";
-import "./App.css";
-import Alert from "./components/Alert";
-import Navbar from "./components/Navbar";
-import TextForm from "./components/TextForm";
-import About from "./components/About";
-import Footer from "./components/Footer";
-import ErrorPage from './components/ErrorPage'
+import { useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import './App.css';
+import Alert from './components/Alert';
+import Navbar from './components/Navbar';
+import TextForm from './components/TextForm';
+import About from './components/About';
+import Footer from './components/Footer';
+import ErrorPage from './components/ErrorPage';
 
 function App() {
-  const [mode, setMode] = useState("light");
+  const [mode, setMode] = useState('light');
   const [alert, setAlert] = useState(null);
 
   // const removeBodyClasses = () => {
@@ -21,29 +21,29 @@ function App() {
   //   document.body.classList.remove("bg-primary");
   // };
 
-  const toggleMode = () => {
-    // removeBodyClasses();
-    // console.log(cls);
-    // document.body.classList.add("bg-" + cls);
-    if (mode === "light") {
-      setMode("dark");
-      document.body.style.backgroundColor = "#042743";
-      showAlert("Dark mode has been enabled", "success");
+  // const toggleMode = () => {
+  //   // removeBodyClasses();
+  //   // console.log(cls);
+  //   // document.body.classList.add("bg-" + cls);
+  //   if (mode === "light") {
+  //     setMode("dark");
+  //     document.body.style.backgroundColor = "#042743";
+  //     showAlert("Dark mode has been enabled", "success");
 
-      // document.title = "TextUtils - Dark Mode";
-      // setInterval(() => {
-      //   document.title = "TextUtils - Dark Mode";
-      // }, 2000);
-      // setInterval(() => {
-      //   document.title = "Install TextUtils  now";
-      // }, 1500);
-    } else {
-      setMode("light");
-      document.body.style.backgroundColor = "white";
-      showAlert("Light mode has been enabled", "success");
-      // document.title = "TextUtils - Light Mode";
-    }
-  };
+  //     // document.title = "TextUtils - Dark Mode";
+  //     // setInterval(() => {
+  //     //   document.title = "TextUtils - Dark Mode";
+  //     // }, 2000);
+  //     // setInterval(() => {
+  //     //   document.title = "Install TextUtils  now";
+  //     // }, 1500);
+  //   } else {
+  //     setMode("light");
+  //     document.body.style.backgroundColor = "white";
+  //     showAlert("Light mode has been enabled", "success");
+  //     // document.title = "TextUtils - Light Mode";
+  //   }
+  // };
 
   const showAlert = (message, type) => {
     setAlert({
@@ -58,7 +58,7 @@ function App() {
   return (
     <>
       {/* <Navbar title="TextUtils" aboutText="About TextUtils" /> */}
-      <Navbar title="TextUtils" mode={mode} toggleMode={toggleMode} />
+      <Navbar title="TextUtils" />
       <Alert alert={alert} />
       <div className="container my-3">
         <Routes>
@@ -72,17 +72,16 @@ function App() {
               <TextForm
                 showAlert={showAlert}
                 heading="Enter The Text To Analyze Below"
-                mode={mode}
               />
             }
           />
-          <Route exact path="/about" element={<About mode={mode} />} />
-          <Route path="*" element={<ErrorPage mode={mode}/>} />
+          <Route exact path="/about" element={<About />} />
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
 
         {/* <About /> */}
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 }

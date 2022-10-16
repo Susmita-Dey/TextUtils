@@ -1,11 +1,21 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { themeActions } from '../store/features/theme/themeSlice';
 
 export default function Navbar(props) {
+  const theme = useSelector((state) => state.theme);
+  const dispatch = useDispatch();
+
+  const handleToggleTheme = () => {
+    if (theme.mode === 'light') dispatch(themeActions.setDarkTheme());
+    else dispatch(themeActions.setLightTheme());
+  };
+
   return (
     <nav
-      className={`navbar navbar-expand-lg navbar-${props.mode} bg-${props.mode}`}
+      className={`navbar navbar-expand-lg navbar-${theme.mode} bg-${theme.mode}`}
     >
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
@@ -81,15 +91,13 @@ export default function Navbar(props) {
           </div> */}
           <div
             className={`form-check form-switch text-${
-              props.mode === "light" ? "dark" : "light"
+              theme.mode === 'light' ? 'dark' : 'light'
             }`}
           >
             <input
               className="form-check-input"
               type="checkbox"
-              onClick={() => {
-                props.toggleMode("light");
-              }}
+              onClick={handleToggleTheme}
               role="switch"
               id="flexSwitchCheckDefault"
             />
@@ -112,6 +120,6 @@ Navbar.propTypes = {
 };
 
 Navbar.defaultProps = {
-  title: "Set title here",
-  aboutText: "About",
+  title: 'Set title here',
+  aboutText: 'About',
 };
