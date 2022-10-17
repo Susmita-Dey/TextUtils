@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { textActions } from '../store/features/text/textSlice';
+import Button from './ui/Button';
 
 export default function TextForm(props) {
   const [isListening, setIsListening] = useState(false);
@@ -15,8 +16,6 @@ export default function TextForm(props) {
    * dispatch function to invoke actions on the state
    */
   const dispatch = useDispatch();
-
-  console.log(textState);
 
   /**
    * Dispatch to undo text action
@@ -160,7 +159,7 @@ export default function TextForm(props) {
       console.log('start');
     } else {
       mic.stop();
-      console.log('stopeed');
+      console.log('stopped');
     }
     mic.onresult = (event) => {
       const transcript = Array.from(event.results)
@@ -182,6 +181,94 @@ export default function TextForm(props) {
     const newWord = prompt('Enter the string to replace with.');
     dispatch(textActions.replaceText({ word, newWord }));
   };
+
+  const availableActions = [
+    {
+      label: 'Convert to uppercase',
+      handleOnClick: handleUpClick,
+      disabled: textState.text.length === 0,
+    },
+    {
+      label: 'Convert to lowercase',
+      handleOnClick: handleLowClick,
+      disabled: textState.text.length === 0,
+    },
+    {
+      label: 'Convert to sentencecase',
+      handleOnClick: handleSentenceClick,
+      disabled: textState.text.length === 0,
+    },
+    {
+      label: 'Encode to base64',
+      handleOnClick: handlebase64Click,
+      disabled: textState.text.length === 0,
+    },
+    {
+      label: 'Clear Text',
+      handleOnClick: handleClearClick,
+      disabled: textState.text.length === 0,
+    },
+    {
+      label: 'Extract Numbers',
+      handleOnClick: handleNumExtract,
+      disabled: textState.text.length === 0,
+    },
+    {
+      label: 'Extract Links',
+      handleOnClick: handleLinkExtract,
+      disabled: textState.text.length === 0,
+    },
+    {
+      label: 'Extract text',
+      handleOnClick: handletextExtract,
+      disabled: textState.text.length === 0,
+    },
+    {
+      label: 'Listen now',
+      handleOnClick: handleSpeakClick,
+      disabled: textState.text.length === 0,
+    },
+    {
+      label: 'Remove white space',
+      handleOnClick: handleRemoveWhiteSpaceClick,
+      disabled: textState.text.length === 0,
+    },
+    {
+      label: 'Remove Special Characters',
+      handleOnClick: handleRemoveSpecialCharacters,
+      disabled: textState.text.length === 0,
+    },
+    {
+      label: 'Copy to clipboard',
+      handleOnClick: handleCopyClick,
+      disabled: textState.text.length === 0,
+    },
+    {
+      label: 'Reverse text',
+      handleOnClick: handlereverseClick,
+      disabled: textState.text.length === 0,
+    },
+    {
+      label: isListening ? 'Stop Listening' : 'Start Listening',
+      handleOnClick: () => setIsListening((prevState) => !prevState),
+      disabled: textState.text.length === 0,
+    },
+    {
+      label: 'Change text',
+      handleOnClick: replace,
+      disabled: textState.text.length === 0,
+    },
+    {
+      label: 'Undo Action',
+      handleOnClick: handleUndo,
+      disabled: textState.undoStack.length === 0,
+    },
+    {
+      label: 'Redo Action',
+      handleOnClick: handleRedo,
+      disabled: textState.redoStack.length === 0,
+    },
+  ];
 
   return (
     <>
@@ -205,130 +292,10 @@ export default function TextForm(props) {
             }}
           ></textarea>
         </div>
-        <button
-          disabled={textState.text.length === 0}
-          className="btn btn-primary mx-1 my-1"
-          onClick={handleUpClick}
-        >
-          Convert to Uppercase
-        </button>
-        <button
-          disabled={textState.text.length === 0}
-          className="btn btn-primary mx-1 my-1"
-          onClick={handleLowClick}
-        >
-          Convert to Lowercase
-        </button>
-        <button
-          disabled={textState.text.length === 0}
-          className="btn btn-primary mx-1 my-1"
-          onClick={handleSentenceClick}
-        >
-          Convert to Sentencecase
-        </button>
-        <button
-          disabled={textState.text.length === 0}
-          className="btn btn-primary mx-1 my-1"
-          onClick={handlebase64Click}
-        >
-          Encode to Base64
-        </button>
-        <button
-          disabled={textState.text.length === 0}
-          className="btn btn-primary mx-1 my-1"
-          onClick={handleClearClick}
-        >
-          Clear Text
-        </button>
-        <button
-          disabled={textState.text.length === 0}
-          className="btn btn-primary mx-1 my-1"
-          onClick={handleNumExtract}
-        >
-          Extract Numbers
-        </button>
-        <button
-          disabled={textState.text.length === 0}
-          className="btn btn-primary mx-1 my-1"
-          onClick={handleLinkExtract}
-        >
-          Extract Links
-        </button>
-        <button
-          disabled={textState.text.length === 0}
-          className="btn btn-primary mx-1 my-1"
-          onClick={handletextExtract}
-        >
-          Extract Text
-        </button>
-        <button
-          disabled={textState.text.length === 0}
-          className="btn btn-primary mx-1 my-1"
-          onClick={handleSpeakClick}
-        >
-          Listen Now
-        </button>
-        <button
-          disabled={textState.text.length === 0}
-          className="btn btn-primary mx-1 my-1"
-          onClick={handleRemoveWhiteSpaceClick}
-        >
-          Remove White Space
-        </button>
-
-        <button
-          disabled={textState.text.length === 0}
-          className="btn btn-primary mx-1 my-1"
-          onClick={handleRemoveSpecialCharacters}
-        >
-          Remove Special Characters
-        </button>
-
-        <button
-          disabled={textState.text.length === 0}
-          className="btn btn-primary mx-1 my-1"
-          onClick={handleCopyClick}
-        >
-          Copy to Clipboard
-        </button>
-        <button
-          disabled={textState.text.length === 0}
-          className="btn btn-primary mx-1 my-1"
-          onClick={handlereverseClick}
-        >
-          Reverse the text
-        </button>
-
-        <button
-          className="btn btn-primary mx-1 my-1"
-          onClick={() => setIsListening((prevState) => !prevState)}
-        >
-          {isListening ? 'Stop Listening' : 'Start Listening'}
-        </button>
-
-        <button
-          disabled={textState.text.length === 0}
-          className="btn btn-primary mx-1 my-1"
-          onClick={replace}
-        >
-          Change Text
-        </button>
-        <button
-          disabled={textState.undoStack.length === 0}
-          className="btn btn-primary mx-1 my-1"
-          onClick={handleUndo}
-        >
-          Undo Action
-        </button>
-        <button
-          disabled={textState.redoStack.length === 0}
-          className="btn btn-primary mx-1 my-1"
-          onClick={handleRedo}
-        >
-          Redo Action
-        </button>
+        {availableActions.map((action) => (
+          <Button key={action.label} action={action} />
+        ))}
       </div>
-
       <div
         className="container my-3"
         style={{

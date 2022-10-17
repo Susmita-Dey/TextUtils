@@ -16,7 +16,8 @@ textListenerMiddleware.startListening({
       action.type === 'text/undo' ||
       action.type === 'text/redo' ||
       action.type === 'text/updateText' ||
-      action.type.search('alert/') !== -1
+      action.type.search('alert/') !== -1 ||
+      action.type.search('theme/') !== -1
     )
       return false;
     else return true;
@@ -30,13 +31,13 @@ textListenerMiddleware.startListening({
 
 alertListenerMiddleware.startListening({
   predicate(action, currState, nextState) {
-    console.log(action);
     if (
       action.type === 'text/exec' ||
       action.type === 'text/undo' ||
       action.type === 'text/redo' ||
       action.type === 'text/updateText' ||
-      action.type.search('alert/') !== -1
+      action.type.search('alert/') !== -1 ||
+      action.type.search('theme/') !== -1
     )
       return false;
     else return true;
