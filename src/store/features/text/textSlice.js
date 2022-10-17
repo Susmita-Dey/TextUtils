@@ -116,7 +116,9 @@ const textSlice = createSlice({
       state.status = 'success';
     },
     replaceText(state, action) {
-      state.text = state.text.split(action.word).join(action.newWord);
+      state.text = state.text
+        .split(action.payload.word)
+        .join(action.payload.newWord);
       state.status = 'success';
     },
   },
