@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
+
 import './App.css';
 import Alert from './components/Alert';
 import Navbar from './components/Navbar';
@@ -8,9 +8,7 @@ import About from './components/About';
 import Footer from './components/Footer';
 import ErrorPage from './components/ErrorPage';
 
-function App() {
-  const [alert, setAlert] = useState(null);
-
+const App = () => {
   // const removeBodyClasses = () => {
   //   document.body.classList.remove("bg-light");
   //   document.body.classList.remove("bg-dark");
@@ -44,45 +42,23 @@ function App() {
   //   }
   // };
 
-  const showAlert = (message, type) => {
-    setAlert({
-      msg: message,
-      type: type,
-    });
-    setTimeout(() => {
-      setAlert(null);
-    }, 2000);
-  };
-
   return (
     <>
-      {/* <Navbar title="TextUtils" aboutText="About TextUtils" /> */}
-      <Navbar title="TextUtils" />
+      <Navbar />
       <Alert />
       <div className="container my-3">
         <Routes>
           {/* /users --> Component 1
           /users/home --> Component 2
           Always use "exact" keyword to match the exact path */}
-          <Route
-            exact
-            path="/"
-            element={
-              <TextForm
-                showAlert={showAlert}
-                heading="Enter The Text To Analyze Below"
-              />
-            }
-          />
+          <Route exact path="/" element={<TextForm />} />
           <Route exact path="/about" element={<About />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
-
-        {/* <About /> */}
       </div>
       <Footer />
     </>
   );
-}
+};
 
 export default App;

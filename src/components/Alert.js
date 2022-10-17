@@ -1,13 +1,10 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
 
-export default function Alert(props) {
+import { capitalize } from '../helper/capitalize';
+
+export default function Alert() {
   const alert = useSelector((state) => state.alert);
 
-  const capitalize = (word) => {
-    const lower = word.toLowerCase();
-    return lower.charAt(0).toUpperCase() + lower.slice(1);
-  };
   return (
     <div style={{ height: '50px' }}>
       {alert.show && (

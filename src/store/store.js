@@ -1,4 +1,5 @@
 import { configureStore, createListenerMiddleware } from '@reduxjs/toolkit';
+
 import textReducer, { textActions } from './features/text/textSlice';
 import themeReducer from './features/theme/themeSlice';
 import alertReducer, { alertActions } from './features/alert/alertSlice';
@@ -6,6 +7,7 @@ import messages from './alertMessages.json';
 
 const textListenerMiddleware = createListenerMiddleware();
 const alertListenerMiddleware = createListenerMiddleware();
+let alertTimeoutID;
 
 textListenerMiddleware.startListening({
   predicate(action, currState, nextState) {
@@ -20,7 +22,6 @@ textListenerMiddleware.startListening({
     else return true;
   },
   effect(action, listenerApi) {
-    console.log(2);
     listenerApi.dispatch(
       textActions.exec({ prevText: listenerApi.getOriginalState().text.text })
     );
@@ -29,6 +30,7 @@ textListenerMiddleware.startListening({
 
 alertListenerMiddleware.startListening({
   predicate(action, currState, nextState) {
+    console.log(action);
     if (
       action.type === 'text/exec' ||
       action.type === 'text/undo' ||
@@ -42,11 +44,19 @@ alertListenerMiddleware.startListening({
   effect(action, listenerApi) {
     const type = listenerApi.getState().text.status;
     const message = messages[action.type][type];
+
+    clearTimeout(alertTimeoutID);
+
     listenerApi.dispatch(
       alertActions.setAlert({
         message,
         type,
       })
+    );
+
+    alertTimeoutID = setTimeout(
+      () => listenerApi.dispatch(alertActions.removeAlert()),
+      2000
     );
   },
 });

@@ -11,7 +11,6 @@ export default function TextForm(props) {
    */
   const textState = useSelector((state) => state.text);
   const themeState = useSelector((state) => state.theme);
-  const alertState = useSelector((state) => state.alert);
   /**
    * dispatch function to invoke actions on the state
    */
@@ -130,7 +129,6 @@ export default function TextForm(props) {
 
   /**
    * Extract the link from the text
-   * TODO: Handle alerts efficiently
    */
   const handleLinkExtract = () => {
     dispatch(textActions.extractLink());
@@ -180,8 +178,8 @@ export default function TextForm(props) {
    * Replace the word with given prompt
    */
   const replace = () => {
-    const word = prompt('what you want to replace');
-    const newWord = prompt('write the new word');
+    const word = prompt('Enter the string to replace.');
+    const newWord = prompt('Enter the string to replace with.');
     dispatch(textActions.replaceText({ word, newWord }));
   };
 
@@ -193,7 +191,7 @@ export default function TextForm(props) {
           color: themeState.color,
         }}
       >
-        <h1 className="mb-2">{props.heading}</h1>
+        <h1 className="mb-2">Enter The Text To Analyze Below</h1>
         <div className="mb-3">
           <textarea
             className="form-control"

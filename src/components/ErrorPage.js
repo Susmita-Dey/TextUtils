@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+
 import ErrorImg from '../assets/404.png';
 
 export default function ErrorPage() {
@@ -16,7 +17,7 @@ export default function ErrorPage() {
           justifyContent: 'center',
         }}
       >
-        <img src={ErrorImg} alt="Error image" style={{ height: '350px' }} />
+        <img src={ErrorImg} alt="Error" style={{ height: '350px' }} />
         <h2 style={{ textAlign: 'center' }}>
           404 <br />
           Error Not Found!

@@ -1,10 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { textActions } from '../text/textSlice';
 
 const initialAlertState = {
   type: '',
   message: '',
-  show: true,
+  show: false,
 };
 
 const alertSlice = createSlice({
@@ -14,9 +13,12 @@ const alertSlice = createSlice({
     setAlert(state, action) {
       state.message = action.payload.message;
       state.type = action.payload.type;
+      state.show = true;
     },
     removeAlert(state, action) {
-      state = initialAlertState;
+      state.type = '';
+      state.message = '';
+      state.show = false;
     },
   },
 });

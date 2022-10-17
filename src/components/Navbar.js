@@ -1,10 +1,9 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { themeActions } from '../store/features/theme/themeSlice';
 
-export default function Navbar(props) {
+export default function Navbar() {
   const theme = useSelector((state) => state.theme);
   const dispatch = useDispatch();
 
@@ -19,7 +18,7 @@ export default function Navbar(props) {
     >
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
-          {props.title}
+          Text Utils
         </Link>
         <button
           className="navbar-toggler"
@@ -41,7 +40,7 @@ export default function Navbar(props) {
             </li>
             <li className="nav-item">
               <Link className="nav-link active" to="/about">
-                {props.aboutText}
+                About Text Utils
               </Link>
             </li>
           </ul>
@@ -113,13 +112,3 @@ export default function Navbar(props) {
     </nav>
   );
 }
-
-Navbar.propTypes = {
-  title: PropTypes.string.isRequired,
-  aboutText: PropTypes.string.isRequired,
-};
-
-Navbar.defaultProps = {
-  title: 'Set title here',
-  aboutText: 'About',
-};
