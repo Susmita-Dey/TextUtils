@@ -34,6 +34,13 @@ It has the following features:
 - Check out our [contribution guidelines](/CONTRIBUTING.md) for more information.
 
 
+## Home Page 
+The home page contains a dialog box that takes any input from the user, upon choosing the options from the buttons one can transform the text into any format they like.
+
+## About Page
+The About Page contains the various uses and advantages of this website.
+
+
 ## License 🛡️ 
 
 TextUtils is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
