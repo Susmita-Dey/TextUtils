@@ -342,7 +342,7 @@ export default function TextForm(props) {
           className="btn btn-primary mx-1 my-1"
           onClick={replace}
         >
-          change text
+          Change Text
         </button>
         <button
           disabled={textState.undoStack.length === 0}
