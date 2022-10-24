@@ -1,15 +1,24 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-export default function Navbar(props) {
+import { themeActions } from '../store/features/theme/themeSlice';
+
+export default function Navbar() {
+  const theme = useSelector((state) => state.theme);
+  const dispatch = useDispatch();
+
+  const handleToggleTheme = () => {
+    if (theme.mode === 'light') dispatch(themeActions.setDarkTheme());
+    else dispatch(themeActions.setLightTheme());
+  };
+
   return (
     <nav
-      className={`navbar navbar-expand-lg navbar-${props.mode} bg-${props.mode}`}
+      className={`navbar navbar-expand-lg navbar-${theme.mode} bg-${theme.mode}`}
     >
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
-          {props.title}
+          Text Utils
         </Link>
         <button
           className="navbar-toggler"
@@ -31,7 +40,7 @@ export default function Navbar(props) {
             </li>
             <li className="nav-item">
               <Link className="nav-link active" to="/about">
-                {props.aboutText}
+                About Text Utils
               </Link>
             </li>
           </ul>
@@ -81,15 +90,13 @@ export default function Navbar(props) {
           </div> */}
           <div
             className={`form-check form-switch text-${
-              props.mode === "light" ? "dark" : "light"
+              theme.mode === 'light' ? 'dark' : 'light'
             }`}
           >
             <input
               className="form-check-input"
               type="checkbox"
-              onClick={() => {
-                props.toggleMode("light");
-              }}
+              onClick={handleToggleTheme}
               role="switch"
               id="flexSwitchCheckDefault"
             />
@@ -105,13 +112,3 @@ export default function Navbar(props) {
     </nav>
   );
 }
-
-Navbar.propTypes = {
-  title: PropTypes.string.isRequired,
-  aboutText: PropTypes.string.isRequired,
-};
-
-Navbar.defaultProps = {
-  title: "Set title here",
-  aboutText: "About",
-};
