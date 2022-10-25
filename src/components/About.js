@@ -12,22 +12,32 @@ export default function About() {
     <div className="container" style={{ color }}>
       <h1 className="my-3">About Us</h1>
       <p>
-        <b>TextUtils</b> is a ReactJs website built primarily to do various
-        operations on regular typed text. You can safely use WordPad or NotePad
+        - <b>TextUtils</b> is a ReactJs website built primarily to do various
+        operations on regular typed text. 
+      </p>
+      <p>
+        - You can safely use WordPad or NotePad
         for text drafting, and saving, but <i>TextUtils</i> offers much more
-        than simple text drafting and formatting. TextUtils can convert your
-        text to any case in just one simple click of a button. It can extract
+        than simple text drafting and formatting.
+      </p> 
+      <p>
+        - <i>TextUtils</i> can convert your text to any case in just one simple click of a button. It can extract
         links and numbers safely from a labyrinth of random text or
         sophisticated documentation. It has an improved property of base64
         encoding, reversal of your inputted text.You can even remove whitespaces
         from your scripted documents, and wear up your earphones to listen to
         it, instead of straining your eyes! It does a detailed analyzing of your
         text, and provides an output of words, and characters, along with
-        reading time as well. The best part of <i>TextUtils</i> is that it is an
-        open source project, as a result, dozens of new features are in the
-        upcoming, which definitely makes it a cut above the rest. <br />
-        The most eminent features of the website are as follows :
+        reading time as well.
       </p>
+      <p>
+        - The best part of <i>TextUtils</i> is that it is an
+        open source project, as a result, dozens of new features are in the
+        upcoming, which definitely makes it a cut above the rest.
+      </p> 
+        {/* <br />The most eminent features of the website are as follows : */}
+      
+      <h1 className="my-3">FAQ's</h1>
       <div className="accordion" id="accordionExample">
         <div className="accordion-item" style={myStyle}>
           <h2 className="accordion-header" id="headingOne">
@@ -40,7 +50,7 @@ export default function About() {
               aria-expanded="true"
               aria-controls="collapseOne"
             >
-              <strong>Analyze Your Text</strong>
+              <strong>What is Text Utils?</strong>
             </button>
           </h2>
           <div
@@ -66,7 +76,7 @@ export default function About() {
               aria-expanded="false"
               aria-controls="collapseTwo"
             >
-              <strong>Free to use</strong>
+              <strong>How much does it cost to use Text Utils?</strong>
             </button>
           </h2>
           <div
@@ -92,7 +102,7 @@ export default function About() {
               aria-expanded="false"
               aria-controls="collapseThree"
             >
-              <strong>Browser Compatible</strong>
+              <strong>Which browser should i use for Text Utils?</strong>
             </button>
           </h2>
           <div
