@@ -300,14 +300,24 @@ export default function TextForm(props) {
   ];
 
   return (
-    <>
+    <div className="container text-center">
+      <div className="row">
       <div
-        className="container"
+        className="col-md-7"
         style={{
           color: themeState.color,
         }}
       >
-        <h1 className="mb-2">Enter The Text To Analyze Below</h1>
+        <h1 className="mb-3">Enter The Text To Analyze</h1>
+        {textState.text.length > 0 &&
+          <p>
+              {0.08 *
+                textState.text.split(' ').filter((element) => {
+                  return element.length !== 0;
+                }).length}{' '}
+              Minutes read
+          </p>
+        }
         <div className="mb-3">
           <textarea
             className="form-control"
@@ -321,6 +331,41 @@ export default function TextForm(props) {
             }}
           ></textarea>
         </div>
+        {textState.text.length > 0 && 
+        <>
+          <p>
+            <b>
+              {
+                textState.text
+                  .replace(/\s/)
+                  .split(' ')
+                  .filter((value) => value !== '').length
+              }
+            </b>{' '}
+            words,
+            <b> {textState.text.trim().length}</b> characters,
+            <b>
+              {' '}
+              {
+                textState.text
+                  .replace(/\n/g, '.')
+                  .split('.')
+                  .filter((value) => value !== '').length
+              }
+            </b>{' '}
+            statements,
+            <b> {textState.text.split('?').length - 1}</b> questions,{' '}
+            <b>{textState.text.split('!').length - 1}</b> exclamations.
+          </p>
+          {/* <p>
+            {0.08 *
+              textState.text.split(' ').filter((element) => {
+                return element.length !== 0;
+              }).length}{' '}
+            Minutes read
+          </p> */}
+        </>
+        }
         {availableActions.map((action) => {
           const supported = action?.supported;
 
@@ -332,12 +377,13 @@ export default function TextForm(props) {
         })}
       </div>
       <div
-        className="container my-3"
+        className="mt-3 md-mt-0 col-md-5 text-wrap border rounded"
         style={{
           color: themeState.color,
+          backgroundColor: themeState.backgroundColor,
         }}
       >
-        <h2>Your Text Summary</h2>
+        {/* <h2>Your Text Summary</h2>
         <p>
           <b>
             {
@@ -368,12 +414,13 @@ export default function TextForm(props) {
               return element.length !== 0;
             }).length}{' '}
           Minutes read
-        </p>
-        <h2>Preview</h2>
-        <p>
+        </p> */}
+        <h2 className="my-3">Preview</h2>
+        <p className="text-break text-wrap" style={{width: "100%"}}>
           {textState.text.length > 0 ? textState.text : 'Nothing to preview!!'}
         </p>
       </div>
-    </>
+      </div>
+    </div>
   );
 }

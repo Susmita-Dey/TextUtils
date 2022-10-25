@@ -6,7 +6,8 @@ export default function Alert() {
   const alert = useSelector((state) => state.alert);
 
   return (
-    <div style={{ height: '50px' }}>
+    // <div style={{ height: '50px' }}>
+    <div>
       {alert.show && (
         <div
           className={`alert alert-${alert.type} alert-dismissible fade show`}

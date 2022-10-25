@@ -17,7 +17,7 @@ export default function Navbar() {
       className={`navbar navbar-expand-lg navbar-${theme.mode} bg-${theme.mode}`}
     >
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/">
+        <Link className="navbar-brand fs-3 fw-bolder" to="/">
           Text Utils
         </Link>
         <button
@@ -40,7 +40,7 @@ export default function Navbar() {
             </li>
             <li className="nav-item">
               <Link className="nav-link active" to="/about">
-                About Text Utils
+                About 
               </Link>
             </li>
           </ul>
