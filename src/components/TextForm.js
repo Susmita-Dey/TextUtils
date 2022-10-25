@@ -173,7 +173,7 @@ export default function TextForm(props) {
         .map((result) => result[0])
         .map((result) => result.transcript)
         .join('');
-      dispatch(transcript);
+      dispatch(textActions.updateText({ text: textState.text + transcript }));
       mic.onerror = (event) => {
         console.log(event.error);
       };
