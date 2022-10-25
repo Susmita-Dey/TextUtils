@@ -180,6 +180,23 @@ export default function TextForm(props) {
     };
   };
 
+  // handle the paste button click event
+  let pasteSupported = false;
+  if (navigator.clipboard && navigator.clipboard.readText) {
+    pasteSupported = true;
+  }
+
+  const handlePasteClick = () => {
+    navigator.clipboard
+      .readText()
+      .then((text) => {
+        dispatch(textActions.updateText({ text: textState.text + text }));
+      })
+      .catch((err) => {
+        console.log('Something went wrong', err);
+      });
+  };
+
   /**
    * Replace the word with given prompt
    */
@@ -251,6 +268,11 @@ export default function TextForm(props) {
       disabled: textState.text.length === 0,
     },
     {
+      label: 'Paste from clipboard',
+      handleOnClick: handlePasteClick,
+      supported: pasteSupported,
+    },
+    {
       label: 'Reverse text',
       handleOnClick: handlereverseClick,
       disabled: textState.text.length === 0,
@@ -258,7 +280,7 @@ export default function TextForm(props) {
     {
       label: isListening ? 'Stop Listening' : 'Start Listening',
       handleOnClick: () => setIsListening((prevState) => !prevState),
-      supported: !mic,
+      supported: mic == undefined ? false : true,
     },
     {
       label: 'Change text',
@@ -300,9 +322,9 @@ export default function TextForm(props) {
           ></textarea>
         </div>
         {availableActions.map((action) => {
-          const supported = action?.supported ? true : false;
+          const supported = action?.supported;
 
-          if (supported) {
+          if (supported === false) {
             return;
           }
 
