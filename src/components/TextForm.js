@@ -205,6 +205,28 @@ export default function TextForm(props) {
     const newWord = prompt('Enter the string to replace with.');
     dispatch(textActions.replaceText({ word, newWord }));
   };
+  
+   // Function to convert text into Bcrypt
+  const handleBcrypt = () => {
+    const bcrypt = require("bcryptjs");
+    const saltRounds = 10;
+
+    bcrypt.genSalt(saltRounds, function (err, salt) {
+      if (err) {
+        throw err;
+      } else {
+        bcrypt.hash(text, salt, function (err, hash) {
+          if (err) {
+            throw err;
+          } else {
+            setText(hash);
+            dispatchTextAction({ type: 'exec', payload: { text: hash } });
+            props.showAlert("Hashed into BCrypt","success")
+          }
+        });
+      }
+    });
+  }
 
   const availableActions = [
     {
@@ -297,6 +319,11 @@ export default function TextForm(props) {
       handleOnClick: handleRedo,
       disabled: textState.redoStack.length === 0,
     },
+    {
+      label: 'Bcrypt',
+      handleOnClick: handleBcrypt,
+      disabled: textState.text.length === 0,
+    }
   ];
 
   return (
