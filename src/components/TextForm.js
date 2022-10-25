@@ -141,32 +141,39 @@ export default function TextForm(props) {
   };
 
   //speech
+
+  let mic;
+
   const SpeechRecognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
-  const mic = new SpeechRecognition();
-
-  mic.continuous = true;
-  mic.interimResults = true;
-  mic.lang = 'en-US';
+  if (SpeechRecognition) {
+    mic = new SpeechRecognition();
+    mic.continuous = true;
+    mic.interimResults = true;
+    mic.lang = 'en-US';
+  }
 
   useEffect(() => {
     handleListen();
   }, [isListening]);
 
   const handleListen = () => {
+    if (!mic) {
+      return;
+    }
     if (isListening) {
       mic.start();
       console.log('start');
     } else {
       mic.stop();
-      console.log('stopped');
+      console.log('stopeed');
     }
     mic.onresult = (event) => {
       const transcript = Array.from(event.results)
         .map((result) => result[0])
         .map((result) => result.transcript)
         .join('');
-      dispatch(textActions.updateText(transcript));
+      dispatch(textActions.updateText({ text: textState.text + transcript }));
       mic.onerror = (event) => {
         console.log(event.error);
       };
@@ -251,7 +258,7 @@ export default function TextForm(props) {
     {
       label: isListening ? 'Stop Listening' : 'Start Listening',
       handleOnClick: () => setIsListening((prevState) => !prevState),
-      disabled: textState.text.length === 0,
+      supported: !mic,
     },
     {
       label: 'Change text',
@@ -292,9 +299,15 @@ export default function TextForm(props) {
             }}
           ></textarea>
         </div>
-        {availableActions.map((action) => (
-          <Button key={action.label} action={action} />
-        ))}
+        {availableActions.map((action) => {
+          const supported = action?.supported ? true : false;
+
+          if (supported) {
+            return;
+          }
+
+          return <Button key={action.label} action={action} />;
+        })}
       </div>
       <div
         className="container my-3"
