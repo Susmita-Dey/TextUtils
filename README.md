@@ -3,7 +3,7 @@
 <img width="40%" src="https://user-images.githubusercontent.com/94471189/193782622-db0071f8-122e-4909-83a8-fe5da257febc.png" alt="main page">
 </p>
 <h3>
-TextUtils is a text analyzer, word counter and converter made with React.
+TextUtils is a text analyzer, word counter and converter made with React js.
 </h3>
 
 It has the following features:
